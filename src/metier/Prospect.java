@@ -5,7 +5,6 @@ import exception.ExceptionMetier;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -16,6 +15,7 @@ public class Prospect extends Societe {
     private String interesse;
 
     /**
+     *
      * @param dateProspection
      */
     public void setDateProspection(Date dateProspection) {
@@ -23,7 +23,7 @@ public class Prospect extends Societe {
     }
 
     /**
-     * /!\ l'exception ne prend pas en compte les spécificités du mois de février
+     * /!\ l'exception ne prend pas en compte la taille des différents mois
      * @param dateProspection
      * @throws ExceptionMetier
      */
@@ -42,6 +42,7 @@ public class Prospect extends Societe {
     }
 
     /**
+     *
      * @return
      */
     public Date getDateProspection() {
@@ -49,7 +50,9 @@ public class Prospect extends Societe {
     }
 
     /**
+     *
      * @param interesse
+     * @throws ExceptionMetier
      */
     public void setInteresse(String interesse) throws ExceptionMetier {
         if (!(interesse.equals("Oui") || interesse.equals("Non"))) {
@@ -59,6 +62,7 @@ public class Prospect extends Societe {
     }
 
     /**
+     *
      * @return
      */
     public String getInteresse() {
@@ -87,11 +91,41 @@ public class Prospect extends Societe {
 
     /**
      *
+     * @param identifiant
+     * @param raisonSociale
+     * @param numeroRue
+     * @param nomRue
+     * @param codePostal
+     * @param ville
+     * @param telephone
+     * @param mail
+     * @param commentaire
+     * @param dateProspection
+     * @param interesse
+     * @throws ExceptionMetier
      */
     public Prospect(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
                     String ville, String telephone, String mail, String commentaire, String dateProspection, String interesse) throws ExceptionMetier {
     super(identifiant,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail,commentaire);
     setDateProspection(dateProspection);
     setInteresse(interesse);
+    }
+
+    /**
+     *
+     * @return la date en format yyyy-MM-dd pour les requêtes sql
+     */
+    public String getDateFormatSQL(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(dateProspection);
+    }
+
+    /**
+     *
+     * @return la date en format dd/MM/yyyy pour le formulaire
+     */
+    public String getDateFormatFormulaire(){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(dateProspection);
     }
 }

@@ -12,6 +12,7 @@ public class Client extends Societe{
     /**
      *
      * @param chiffreDAffaire >200
+     * @throws ExceptionMetier
      */
     public void setChiffreDAffaire(double chiffreDAffaire) throws ExceptionMetier {
         if (chiffreDAffaire<200){
@@ -31,6 +32,7 @@ public class Client extends Societe{
     /**
      *
      * @param nbEmploye >0
+     * @throws ExceptionMetier
      */
     public void setNbEmploye(int nbEmploye) throws ExceptionMetier {
         if (nbEmploye<1){
@@ -60,6 +62,7 @@ public class Client extends Societe{
      * @param commentaire
      * @param chiffreDAffaire
      * @param nbEmploye
+     * @throws ExceptionMetier
      */
     public Client(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
                   String ville, String telephone, String mail, String commentaire, double chiffreDAffaire, int nbEmploye) throws ExceptionMetier {

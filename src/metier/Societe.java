@@ -1,7 +1,9 @@
 package metier;
 
 import exception.ExceptionMetier;
+import log.LoggerPoo;
 
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 /**
@@ -117,6 +119,7 @@ public abstract class Societe {
     /**
      *
      * @param telephone au moins 10 chiffres
+     * @throws ExceptionMetier
      */
     public void setTelephone(String telephone) throws ExceptionMetier {
         if (telephone.length()<10){
@@ -136,6 +139,7 @@ public abstract class Societe {
     /**
      *
      * @param mail [adresse]@[mail].[domaine]
+     * @throws ExceptionMetier
      */
     public void setMail(String mail) throws ExceptionMetier {
         Pattern patternMail = Pattern.compile("^(.*)@(.*)[.](.*)$");
@@ -187,6 +191,7 @@ public abstract class Societe {
      * @param telephone
      * @param mail
      * @param commentaire
+     * @throws ExceptionMetier
      */
     public Societe(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
                    String ville, String telephone, String mail, String commentaire) throws ExceptionMetier {

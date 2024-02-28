@@ -1,7 +1,6 @@
 package test;
 
 import exception.ExceptionMetier;
-import metier.Client;
 import metier.Prospect;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,5 +41,51 @@ public class TestProspect {
                 date,
                 "Oui"));
         assertEquals("Mauvais format de date (doit être jj/MM/yyyy)",exception.getMessage());
+    }
+    @Test
+    void testGetDateFormatSQL() throws ExceptionMetier {
+        Prospect prospect = new Prospect(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                "27/02/2024",
+                "Oui");
+        assertEquals("2024-02-27",prospect.getDateFormatSQL());
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"Oui","Non"})
+    void testGetInterresse(String interet) throws ExceptionMetier {
+        Prospect prospect = new Prospect(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                "27/02/2024",
+                interet);
+        assertEquals(interet,prospect.getInteresse());
+    }
+    @Test
+    void testSetInterresseIncorrect(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Prospect(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                "27/02/2024",
+                "Peut-être"));
+        assertEquals("la valeur interesse doit être Oui ou Non",exception.getMessage());
     }
 }
