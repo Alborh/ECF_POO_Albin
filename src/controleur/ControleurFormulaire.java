@@ -2,6 +2,7 @@ package controleur;
 
 import dao.DAOClient;
 import dao.DAOProspect;
+import exception.ExceptionControleur;
 import exception.ExceptionDAO;
 import exception.ExceptionMetier;
 import metier.Client;
@@ -15,6 +16,15 @@ public class ControleurFormulaire {
     private static String societe;
 
     private static VueFormulaire vueFormulaire;
+
+    /**
+     *
+     * @param typeFormulaire
+     * @param typeSociete
+     * @param raisonSociale
+     * @throws ExceptionMetier
+     * @throws ExceptionDAO
+     */
     public static void init(String typeFormulaire, String typeSociete, String raisonSociale) throws ExceptionMetier, ExceptionDAO {
         formulaire = typeFormulaire;
         societe = typeSociete;
@@ -103,8 +113,47 @@ public class ControleurFormulaire {
         vueFormulaire.setVisible(true);
     }
 
-    public static void onValider() throws ExceptionMetier, ExceptionDAO {
-        //System.out.println("Valider");
+    /**
+     *
+     * @throws ExceptionMetier
+     * @throws ExceptionDAO
+     * @throws ExceptionControleur
+     */
+    public static void onValider() throws ExceptionMetier, ExceptionDAO, ExceptionControleur {
+        if (vueFormulaire.textFieldRaisonSociale.getText().isEmpty()){
+            throw (new ExceptionControleur("Erreur controleur : raison sociale ne dois pas être vide"));
+        }
+        if (vueFormulaire.textFieldNumeroRue.getText().isEmpty()){
+            throw (new ExceptionControleur("Erreur controleur : numéro rue ne dois pas être vide"));
+        }
+        if(vueFormulaire.textFieldNomRue.getText().isEmpty()){
+            throw (new ExceptionControleur("Erreur controleur : nom rue ne dois pas être vide"));
+        }
+        if (vueFormulaire.textFieldCodePostal.getText().isEmpty()){
+            throw (new ExceptionControleur("Erreur controleur : code postal ne dois pas être vide"));
+        }
+        if (vueFormulaire.textFieldVille.getText().isEmpty()){
+            throw (new ExceptionControleur("Erreur controleur : ville ne dois pas être vide"));
+        }
+        if (vueFormulaire.textFieldTelephone.getText().isEmpty()){
+            throw (new ExceptionControleur("Erreur controleur : telephone ne dois pas être vide"));
+        }
+        if (vueFormulaire.textFieldMail.getText().isEmpty()){
+            throw (new ExceptionControleur("Erreur controleur : mail ne dois pas être vide"));
+        }
+        if (societe.equals("Client")){
+            if (vueFormulaire.textFieldChiffreDAffaire.getText().isEmpty()){
+                throw (new ExceptionControleur("Erreur controleur : chiffre d'affaire ne dois pas être vide"));
+            }
+            if (vueFormulaire.textFieldNombreEmploye.getText().isEmpty()){
+                throw (new ExceptionControleur("Erreur controleur : nombre d'employés ne dois pas être vide"));
+            }
+        }
+        if (societe.equals("Prospect")){
+            if (vueFormulaire.dateTextField.getText().isEmpty()){
+                throw (new ExceptionControleur("Erreur controleur : date de prospection ne dois pas être vide"));
+            }
+        }
         switch (formulaire){
             case "Creation"->{
                 if (societe.equals("Client")){
@@ -116,13 +165,41 @@ public class ControleurFormulaire {
                     DAOProspect.create(prospect);
                 }
             }
+            case "Modification"->{
+                if(societe.equals("Client")){
+                    Client client = createClient();
+                    DAOClient.update(client);
+                }
+                else {
+                    Prospect prospect = createProspect();
+                    DAOProspect.update(prospect);
+                }
+            }
+            case "Suppression"->{
+                if(societe.equals("Client")){
+                    Client client = DAOClient.findByName(vueFormulaire.textFieldRaisonSociale.getText());
+                    DAOClient.delete(client);
+                }
+                else {
+                    Prospect prospect = DAOProspect.findByName(vueFormulaire.textFieldRaisonSociale.getText());
+                    DAOProspect.delete(prospect);
+                }
+            }
         }
+        onRetourAcceuil();
     }
+
+    /**
+     *
+     */
     public static void onRetourAcceuil(){
         onQuitter();
         ControleurAcceuil.init();
     }
 
+    /**
+     *
+     */
     public static void onQuitter(){
         vueFormulaire.dispose();
     }
@@ -134,14 +211,18 @@ public class ControleurFormulaire {
      * @throws ExceptionDAO
      */
     private static Client createClient() throws ExceptionMetier, ExceptionDAO {
-        ArrayList<Client> clients = DAOClient.findAll();
         int identifiant = 0;
-        for (Client client : clients){
-            if (client.getIdentifiant()>identifiant){
-                identifiant = client.getIdentifiant();
+        if(formulaire.equals("Creation")) {
+            ArrayList<Client> clients = DAOClient.findAll();
+            for (Client client : clients) {
+                if (client.getIdentifiant() > identifiant) {
+                    identifiant = client.getIdentifiant();
+                }
             }
+            identifiant++;
+        } else {
+            identifiant = DAOClient.findByName(vueFormulaire.textFieldRaisonSociale.getText()).getIdentifiant();
         }
-        identifiant++;
         String raisonSociale = vueFormulaire.textFieldRaisonSociale.getText();
         String numeroRue = vueFormulaire.textFieldNumeroRue.getText();
         String nomRue = vueFormulaire.textFieldNomRue.getText();
@@ -163,14 +244,18 @@ public class ControleurFormulaire {
      * @throws ExceptionDAO
      */
     private static Prospect createProspect() throws ExceptionMetier, ExceptionDAO {
-        ArrayList<Prospect> prospects = DAOProspect.findAll();
         int identifiant = 0;
-        for (Prospect prospect : prospects){
-            if (prospect.getIdentifiant()>identifiant){
-                identifiant = prospect.getIdentifiant();
+        if (formulaire.equals("Creation")) {
+            ArrayList<Prospect> prospects = DAOProspect.findAll();
+            for (Prospect prospect : prospects) {
+                if (prospect.getIdentifiant() > identifiant) {
+                    identifiant = prospect.getIdentifiant();
+                }
             }
+            identifiant++;
+        } else {
+            identifiant = DAOProspect.findByName(vueFormulaire.textFieldRaisonSociale.getText()).getIdentifiant();
         }
-        identifiant++;
         String raisonSociale = vueFormulaire.textFieldRaisonSociale.getText();
         String numeroRue = vueFormulaire.textFieldNumeroRue.getText();
         String nomRue = vueFormulaire.textFieldNomRue.getText();

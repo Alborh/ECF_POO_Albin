@@ -23,7 +23,7 @@ public class DAOClient {
             Connection connection = ConnexionManager.getConnexion();
             String query = "SELECT client.idclient as id, client.raisonsociale as raisoc, client.numerorue as numrue, " +
                     "client.nomrue as nomrue, client.codepostal as cdpost, client.ville as ville, client.telephone as tel, " +
-                    "client.mail as mail, client.commentaire as comm, client.chiffredaffaire as chaff, client.NBEMPOLYES as nbemp" +
+                    "client.mail as mail, client.commentaire as comm, client.chiffredaffaire as chaff, client.NBEMPLOYES as nbemp" +
                     " FROM client";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet res = stmt.executeQuery();
@@ -59,7 +59,7 @@ public class DAOClient {
             Connection connection = ConnexionManager.getConnexion();
             String query = "SELECT client.idclient as id, client.raisonsociale as raisoc, client.numerorue as numrue, client.nomrue as nomrue," +
                     " client.codepostal as cdpost, client.ville as ville, client.telephone as tel, client.mail as mail, client.commentaire as comm," +
-                    " client.chiffredaffaire as chaff, client.NBEMPOLYES as nbemp FROM client where client.RAISONSOCIALE like ?";
+                    " client.chiffredaffaire as chaff, client.NBEMPLOYES as nbemp FROM client where client.RAISONSOCIALE like ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1,name);
             ResultSet res = stmt.executeQuery();
@@ -90,7 +90,7 @@ public class DAOClient {
     public static void create(Client client) throws ExceptionDAO {
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "INSERT INTO client(client.idclient, client.raisonsociale, client.numerorue, client.nomrue, client.codepostal, client.ville, client.telephone, client.mail, client.commentaire, client.chiffredaffaire, client.NBEMPOLYES" +
+            String query = "INSERT INTO client(client.idclient, client.raisonsociale, client.numerorue, client.nomrue, client.codepostal, client.ville, client.telephone, client.mail, client.commentaire, client.chiffredaffaire, client.NBEMPLOYES)" +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,client.getIdentifiant());
@@ -118,21 +118,24 @@ public class DAOClient {
     public static void update(Client client) throws ExceptionDAO {
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "UPDATE client SET client.raisonsociale = '" + client.getRaisonSociale() + ", " +
-                    "client.numerorue = '" + client.getNumeroRue() + "', " +
-                    "client.nomrue = '" + client.getNomRue() + "', " +
-                    "client.codepostal = '" + client.getCodePostal() + "', " +
-                    "client.ville = '" + client.getVille() + "', " +
-                    "client.telephone = '" + client.getTelephone() + "', " +
-                    "client.mail = '" + client.getMail() + "', " +
-                    "client.commentaire = '" + client.getCommentaire() + "', " +
-                    "client.chiffredaffaire = " + client.getChiffreDAffaire() + ", " +
-                    "client.NBEMPLOYES = " + client.getNbEmploye() +
-                    " WHERE client.idclient = " + client.getIdentifiant();
-            Statement stmt = connection.createStatement();
-            stmt.execute(query);
+            String query = "UPDATE client SET client.raisonsociale = ?, client.numerorue = ?, client.nomrue = ?, " +
+                    "client.codepostal = ?, client.ville = ?, client.telephone = ?, client.mail = ?, client.commentaire = ?, " +
+                    "client.chiffredaffaire = ?, client.nbemployes = ? WHERE client.idclient = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(11,client.getIdentifiant());
+            stmt.setString(1,client.getRaisonSociale());
+            stmt.setString(2,client.getNumeroRue());
+            stmt.setString(3,client.getNomRue());
+            stmt.setString(4,client.getCodePostal());
+            stmt.setString(5,client.getVille());
+            stmt.setString(6,client.getTelephone());
+            stmt.setString(7,client.getMail());
+            stmt.setString(8,client.getCommentaire());
+            stmt.setDouble(9,client.getChiffreDAffaire());
+            stmt.setInt(10,client.getNbEmploye());
+            stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAo : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
         }
     }
 
@@ -144,9 +147,10 @@ public class DAOClient {
     public static void delete(Client client) throws ExceptionDAO {
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "DELETE FROM client WHERE client.id = "+client.getIdentifiant();
-            Statement stmt = connection.createStatement();
-            stmt.execute(query);
+            String query = "DELETE FROM client WHERE client.idclient = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1,client.getIdentifiant());
+            stmt.execute();
         } catch (SQLException | IOException e){
             throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
         }

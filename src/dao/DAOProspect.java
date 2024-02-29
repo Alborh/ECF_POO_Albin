@@ -94,14 +94,23 @@ public class DAOProspect {
     public static void create(Prospect prospect) throws ExceptionDAO {
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "INSERT INTO prospect(prospect.idprospect, prospect.raisoncociale, prospect.numerorue, prospect.nomrue, prospect.codepostal, prospect.ville, prospect.telephone, prospect.mail, prospect.commentaire, prospect.dateprospection, prospect.interesse) "
-                    +"VALUES ("+prospect.getIdentifiant()+", '"+prospect.getRaisonSociale()+"', '"+prospect.getNumeroRue()+"', '"+
-                    prospect.getNomRue()+"', '"+prospect.getCodePostal()+"', '"+prospect.getVille()+"', '"+prospect.getTelephone()+"', '"+
-                    prospect.getMail()+"', '"+prospect.getCommentaire()+"', '"+prospect.getDateFormatSQL()+"', '"+prospect.getInteresse()+')';
-            Statement stmt = connection.createStatement();
-            stmt.executeQuery(query);
+            String query = "INSERT INTO prospect(prospect.idprospect, prospect.raisonsociale, prospect.numerorue, prospect.nomrue, prospect.codepostal, prospect.ville, prospect.telephone, prospect.mail, prospect.commentaire, prospect.dateprospection, prospect.interesse) "
+                    +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1,prospect.getIdentifiant());
+            stmt.setString(2,prospect.getRaisonSociale());
+            stmt.setString(3,prospect.getNumeroRue());
+            stmt.setString(4,prospect.getNomRue());
+            stmt.setString(5,prospect.getCodePostal());
+            stmt.setString(6,prospect.getVille());
+            stmt.setString(7,prospect.getTelephone());
+            stmt.setString(8,prospect.getMail());
+            stmt.setString(9,prospect.getCommentaire());
+            stmt.setString(10, prospect.getDateFormatSQL());
+            stmt.setString(11,prospect.getInteresse());
+            stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAo : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
         }
     }
 
@@ -113,19 +122,22 @@ public class DAOProspect {
     public static void update(Prospect prospect) throws ExceptionDAO {
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "UPDATE prospect SET prospect.raisonsociale = '"+prospect.getRaisonSociale()+"', "+
-                    "prospect.numerorue = '"+prospect.getNumeroRue()+"', "+
-                    "prospect.nomrue = '"+prospect.getNumeroRue()+"', "+
-                    "prospect.codepostal = '"+prospect.getCodePostal()+"', "+
-                    "prospect.ville = '"+prospect.getVille()+"', "+
-                    "prospect.telephone = '"+prospect.getTelephone()+"' "+
-                    "prospect.mail ='"+prospect.getMail()+"', "+
-                    "prospect.commentaire = '"+prospect.getCommentaire()+"', "+
-                    "prospect.dateprospection = '"+prospect.getDateFormatSQL()+"', "+
-                    "prospect.interesse = '"+prospect.getInteresse()+"' "+
-                    "WHERE prospect.idprospect = "+prospect.getIdentifiant();
-            Statement stmt = connection.createStatement();
-            stmt.executeQuery(query);
+            String query = "UPDATE prospect SET prospect.raisonsociale = ?, prospect.numerorue = ?, prospect.nomrue = ?, "+
+                    "prospect.codepostal = ?, prospect.ville = ?, prospect.telephone = ?, prospect.mail = ?, "+
+                    "prospect.commentaire = ?, prospect.dateprospection = ?, prospect.interesse = ? WHERE prospect.idprospect = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(11,prospect.getIdentifiant());
+            stmt.setString(1,prospect.getRaisonSociale());
+            stmt.setString(2,prospect.getNumeroRue());
+            stmt.setString(3,prospect.getNomRue());
+            stmt.setString(4,prospect.getCodePostal());
+            stmt.setString(5,prospect.getVille());
+            stmt.setString(6,prospect.getTelephone());
+            stmt.setString(7,prospect.getMail());
+            stmt.setString(8,prospect.getCommentaire());
+            stmt.setString(9, prospect.getDateFormatSQL());
+            stmt.setString(10,prospect.getInteresse());
+            stmt.execute();
         } catch (SQLException | IOException e){
             throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
         }
@@ -139,9 +151,10 @@ public class DAOProspect {
     public static void delete(Prospect prospect) throws ExceptionDAO {
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "DELETE FROM prospect WHERE prospect.idprospect = "+prospect.getIdentifiant();
-            Statement stmt = connection.createStatement();
-            stmt.executeQuery(query);
+            String query = "DELETE FROM prospect WHERE prospect.idprospect = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1,prospect.getIdentifiant());
+            stmt.execute();
         } catch (SQLException | IOException e){
             throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
         }

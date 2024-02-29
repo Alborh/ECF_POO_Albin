@@ -28,12 +28,21 @@ public class ControleurAcceuil {
     /**
      *
      */
-    public static void onAfficher(){
-        System.out.println("Afficher");
+    public static void onAfficher() throws ExceptionMetier, ExceptionDAO {
+        String typeSociete;
+        if (acceuil.clientRadioButton.isSelected()){
+            typeSociete = "Client";
+        }else {
+            typeSociete = "Prospect";
+        }
+        onQuitter();
+        ControlleurAffichage.init(typeSociete);
     }
 
     /**
      *
+     * @throws ExceptionMetier
+     * @throws ExceptionDAO
      */
     public static void onCreation() throws ExceptionMetier, ExceptionDAO {
         String typeSociete;
@@ -50,6 +59,8 @@ public class ControleurAcceuil {
 
     /**
      *
+     * @throws ExceptionMetier
+     * @throws ExceptionDAO
      */
     public static void onModifier() throws ExceptionMetier, ExceptionDAO {
         String typeSociete;
@@ -66,6 +77,8 @@ public class ControleurAcceuil {
 
     /**
      *
+     * @throws ExceptionMetier
+     * @throws ExceptionDAO
      */
     public static void onSupprimer() throws ExceptionMetier, ExceptionDAO {
         String typeSociete;
@@ -86,6 +99,11 @@ public class ControleurAcceuil {
         acceuil.dispose();
     }
 
+    /**
+     *
+     * @throws ExceptionMetier
+     * @throws ExceptionDAO
+     */
     public static void choixSocieteSetChoix() throws ExceptionMetier, ExceptionDAO {
         if (acceuil.clientRadioButton.isSelected()){
             acceuil.comboBoxChoixSociete.removeAllItems();

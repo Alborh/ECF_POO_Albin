@@ -36,3 +36,33 @@
 28/02/2024 16:29:25 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'VALUES (1, 'test', '24', 'chemin test', '24024', 'Test-les-tests', '2424242424',' à la ligne 1
 28/02/2024 16:48:40 Niveau : SEVERE / Classe : vues.VueAcceuil$10 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Parameter index out of range (1 > number of parameters, which is 0).
 28/02/2024 16:48:58 Niveau : SEVERE / Classe : vues.VueAcceuil$10 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Parameter index out of range (0 < 1 ).
+29/02/2024 08:12:33 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'VALUES (1, 'test', '24', 'chemin test', '24024', 'Test-les-tests', '2424242424',' à la ligne 1
+29/02/2024 08:12:37 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'VALUES (1, 'test', '24', 'chemin test', '24024', 'Test-les-tests', '2424242424',' à la ligne 1
+29/02/2024 08:17:14 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAo : Statement.executeQuery() cannot issue statements that do not produce result sets.
+29/02/2024 08:18:53 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAo : Champ 'prospect.raisoncociale' inconnu dans field list
+29/02/2024 08:20:10 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAo : Champ 'prospect.raisoncociale' inconnu dans field list
+29/02/2024 08:20:56 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAo : Champ 'prospect.raisoncociale' inconnu dans field list
+29/02/2024 08:40:34 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : raison sociale ne dois pas être vide
+29/02/2024 08:40:40 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : numéro rue ne dois pas être vide
+29/02/2024 08:40:45 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : nom rue ne dois pas être vide
+29/02/2024 08:40:56 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : code postal ne dois pas être vide
+29/02/2024 08:41:00 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : ville ne dois pas être vide
+29/02/2024 08:41:16 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : telephone ne dois pas être vide
+29/02/2024 08:41:24 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : mail ne dois pas être vide
+29/02/2024 08:41:35 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : chiffre d'affaire ne dois pas être vide
+29/02/2024 08:41:51 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : nombre d'employés ne dois pas être vide
+29/02/2024 08:41:57 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Email invalide : doit être au format [adresse]@[mail].[domaine]
+29/02/2024 08:42:43 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAo : Champ 'client.NBEMPLOYES' inconnu dans field list
+29/02/2024 08:43:44 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Champ 'client.id' inconnu dans where clause
+29/02/2024 08:45:01 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Champ 'client.id' inconnu dans where clause
+29/02/2024 08:48:49 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Illegal operation on empty result set.
+29/02/2024 08:49:15 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Champ 'client.nbemployes' inconnu dans field list
+29/02/2024 08:50:43 Niveau : SEVERE / Classe : vues.VueAcceuil$8 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Champ 'client.NBEMPOLYES' inconnu dans field list
+29/02/2024 08:51:06 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Illegal operation on empty result set.
+29/02/2024 08:51:42 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'hoho@hihi.haha', prospect.commentaire = '', prospect.dateprospe' à la ligne 1
+29/02/2024 08:53:58 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'ejah@skbje.fzq', prospect.commentaire = '', prospect.dateprospe' à la ligne 1
+29/02/2024 08:55:20 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Illegal operation on empty result set.
+29/02/2024 08:55:32 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Illegal operation on empty result set.
+29/02/2024 09:02:52 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'hoho@hihi.haha', prospect.commentaire = ' ', prospect.dateprosp' à la ligne 1
+29/02/2024 09:03:02 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'hoho@hihi.haha', prospect.commentaire = '', prospect.dateprospe' à la ligne 1
+29/02/2024 09:03:21 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'ho@hi.ha', prospect.commentaire = '', prospect.dateprospection ' à la ligne 1

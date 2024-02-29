@@ -89,7 +89,15 @@ public class VueAcceuil extends JDialog {
 
         afficherButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ControleurAcceuil.onAfficher();
+                try {
+                    ControleurAcceuil.onAfficher();
+                } catch (ExceptionMetier ex) {
+                    LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    System.out.println(ex.getMessage());
+                } catch (ExceptionDAO ex) {
+                    LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    System.out.println(ex.getMessage());
+                }
             }
         });
 
@@ -160,13 +168,4 @@ public class VueAcceuil extends JDialog {
             }
         });
     }
-
-
-
-  /*  public static void main(String[] args) {
-        VueAcceuil dialog = new VueAcceuil();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }*/
 }

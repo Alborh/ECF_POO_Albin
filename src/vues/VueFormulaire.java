@@ -1,6 +1,7 @@
 package vues;
 
 import controleur.ControleurFormulaire;
+import exception.ExceptionControleur;
 import exception.ExceptionDAO;
 import exception.ExceptionMetier;
 import log.LoggerPoo;
@@ -58,6 +59,9 @@ public class VueFormulaire extends JDialog {
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
                     System.out.println(ex.getMessage());
+                } catch (ExceptionControleur ex) {
+                    LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Controleur : "+ex.getMessage());
+                    System.out.println(ex.getMessage());
                 }
             }
         });
@@ -99,11 +103,4 @@ public class VueFormulaire extends JDialog {
             }
         });
     }
-
-   /* public static void main(String[] args) {
-        VueFormulaire dialog = new VueFormulaire();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }*/
 }
