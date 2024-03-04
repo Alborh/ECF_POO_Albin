@@ -4,6 +4,7 @@ import controleur.ControleurAcceuil;
 import exception.ExceptionDAO;
 import exception.ExceptionMetier;
 import log.LoggerPoo;
+import outils.Outils;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -31,7 +32,8 @@ public class VueAcceuil extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(validerButton);
-
+        setSize(500,400);
+        pannelChoixSociete.setVisible(false);
         clientRadioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 prospectRadioButton.setEnabled(true);
@@ -41,9 +43,11 @@ public class VueAcceuil extends JDialog {
                     ControleurAcceuil.choixSocieteSetChoix();
                 } catch (ExceptionMetier ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
             }
@@ -58,9 +62,11 @@ public class VueAcceuil extends JDialog {
                     ControleurAcceuil.choixSocieteSetChoix();
                 } catch (ExceptionMetier ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
             }
@@ -93,9 +99,11 @@ public class VueAcceuil extends JDialog {
                     ControleurAcceuil.onAfficher();
                 } catch (ExceptionMetier ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
             }
@@ -108,9 +116,11 @@ public class VueAcceuil extends JDialog {
                     ControleurAcceuil.onCreation();
                 } catch (ExceptionMetier ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
             }
@@ -124,9 +134,11 @@ public class VueAcceuil extends JDialog {
                     ControleurAcceuil.choixSocieteSetChoix();
                 } catch (ExceptionMetier ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
             }
@@ -140,9 +152,11 @@ public class VueAcceuil extends JDialog {
                     ControleurAcceuil.choixSocieteSetChoix();
                 } catch (ExceptionMetier ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
             }
@@ -160,9 +174,11 @@ public class VueAcceuil extends JDialog {
                     }
                 } catch (ExceptionMetier ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur Metier : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (ExceptionDAO ex) {
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
+                    Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 }
             }

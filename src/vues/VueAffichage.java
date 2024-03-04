@@ -10,6 +10,8 @@ public class VueAffichage extends JDialog {
     private JButton buttonRetourAcceuil;
     private JButton buttonQuitter;
     public JScrollPane scrollPane;
+    public JPanel pannelPrincipal;
+    public JLabel labTitre;
 
     public VueAffichage() {
         setContentPane(contentPane);

@@ -43,7 +43,7 @@ public class DAOClient {
             }
             return clients;
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 
@@ -78,7 +78,7 @@ public class DAOClient {
             Client client = new Client(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, chaff, nbemp);
             return client;
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 
@@ -106,7 +106,7 @@ public class DAOClient {
             stmt.setInt(11,client.getNbEmploye());
             stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 
@@ -135,7 +135,7 @@ public class DAOClient {
             stmt.setInt(10,client.getNbEmploye());
             stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 
@@ -152,7 +152,7 @@ public class DAOClient {
             stmt.setInt(1,client.getIdentifiant());
             stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 }

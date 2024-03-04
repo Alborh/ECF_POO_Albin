@@ -19,9 +19,6 @@ public class ControleurAcceuil {
      */
     public static void init(){
         acceuil = new VueAcceuil();
-        acceuil.setSize(500,400);
-        acceuil.pannelChoixSociete.setVisible(false);
-
         acceuil.setVisible(true);
     }
 

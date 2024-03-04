@@ -45,7 +45,7 @@ public class DAOProspect {
             }
             return prospects;
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
 
     }
@@ -82,7 +82,7 @@ public class DAOProspect {
             Prospect prospect = new Prospect(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, datepros,interesse);
             return prospect;
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 
@@ -110,7 +110,7 @@ public class DAOProspect {
             stmt.setString(11,prospect.getInteresse());
             stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 
@@ -139,7 +139,7 @@ public class DAOProspect {
             stmt.setString(10,prospect.getInteresse());
             stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 
@@ -156,7 +156,7 @@ public class DAOProspect {
             stmt.setInt(1,prospect.getIdentifiant());
             stmt.execute();
         } catch (SQLException | IOException e){
-            throw (new ExceptionDAO("Erreur DAO : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
 }

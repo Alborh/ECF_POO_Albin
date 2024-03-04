@@ -66,3 +66,36 @@
 29/02/2024 09:02:52 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'hoho@hihi.haha', prospect.commentaire = ' ', prospect.dateprosp' à la ligne 1
 29/02/2024 09:03:02 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'hoho@hihi.haha', prospect.commentaire = '', prospect.dateprospe' à la ligne 1
 29/02/2024 09:03:21 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Erreur de syntaxe près de 'prospect.mail = 'ho@hi.ha', prospect.commentaire = '', prospect.dateprospection ' à la ligne 1
+04/03/2024 11:23:10 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : raison sociale ne dois pas être vide
+04/03/2024 11:23:40 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : raison sociale ne dois pas être vide
+04/03/2024 11:24:07 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : nom rue ne dois pas être vide
+04/03/2024 11:24:40 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Numéro de téléphone trop court : doit avoir au moins 10 chiffres
+04/03/2024 11:24:59 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Email invalide : doit être au format [adresse]@[mail].[domaine]
+04/03/2024 11:25:22 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : raison sociale ne dois pas être vide
+04/03/2024 11:26:10 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Email invalide : doit être au format [adresse]@[mail].[domaine]
+04/03/2024 11:26:27 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Le chiffre d'affaire doit être supérieur à 200
+04/03/2024 11:26:35 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Le nombre d'employé doit être supérieur à 0
+04/03/2024 11:26:48 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Numéro de téléphone trop court : doit avoir au moins 10 chiffres
+04/03/2024 11:27:05 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Mauvais format de date (doit être jj/MM/yyyy)
+04/03/2024 11:28:02 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur controleur : raison sociale ne dois pas être vide
+04/03/2024 11:28:58 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : raison sociale ne dois pas être vide
+04/03/2024 11:29:13 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : numéro rue ne dois pas être vide
+04/03/2024 11:29:32 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : nom rue ne dois pas être vide
+04/03/2024 11:29:40 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : code postal ne dois pas être vide
+04/03/2024 11:29:48 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : ville ne dois pas être vide
+04/03/2024 11:29:59 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : telephone ne dois pas être vide
+04/03/2024 11:30:08 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : mail ne dois pas être vide
+04/03/2024 11:30:20 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : chiffre d'affaire ne dois pas être vide
+04/03/2024 11:30:29 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : chiffre d'affaire ne dois pas être vide
+04/03/2024 11:30:33 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : nombre d'employés ne dois pas être vide
+04/03/2024 11:30:36 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Numéro de téléphone trop court : doit avoir au moins 10 chiffres
+04/03/2024 11:30:40 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Le chiffre d'affaire doit être supérieur à 200
+04/03/2024 11:30:44 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Le nombre d'employé doit être supérieur à 0
+04/03/2024 11:30:51 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Data truncation: Data too long for column 'CODEPOSTAL' at row 1
+04/03/2024 11:31:54 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Data truncation: Data too long for column 'CODEPOSTAL' at row 1
+04/03/2024 11:32:06 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur DAO : Data truncation: Data too long for column 'TELEPHONE' at row 1
+04/03/2024 11:34:44 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Numéro de téléphone trop court : doit avoir au moins 10 chiffres
+04/03/2024 11:34:53 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Email invalide : doit être au format [adresse]@[mail].[domaine]
+04/03/2024 11:35:02 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Metier : Mauvais format de date (doit être jj/MM/yyyy)
+04/03/2024 13:44:06 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur Controleur : Erreur : raison sociale ne dois pas être vide
+04/03/2024 14:56:35 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur DAO : Erreur : Illegal operation on empty result set.

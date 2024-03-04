@@ -1,5 +1,7 @@
 package dao;
 
+import log.LoggerPoo;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
 
 /**
  *
@@ -40,5 +43,22 @@ public class ConnexionManager {
             new ConnexionManager();
         }
         return connexion;
+    }
+
+    //Gestion de la fermeture de la connection
+    static {
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            public void run(){
+                if (connexion !=null){
+                    try {
+                        LoggerPoo.LOGGER.log(Level.INFO,"Database fermée");
+                        connexion.close();
+                        System.out.println("Connection fermée");
+                    } catch (SQLException e){
+                        LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+e.getMessage());
+                    }
+                }
+            }
+        });
     }
 }
