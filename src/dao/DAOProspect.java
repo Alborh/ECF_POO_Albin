@@ -2,12 +2,16 @@ package dao;
 
 import exception.ExceptionDAO;
 import exception.ExceptionMetier;
+import log.LoggerPoo;
 import metier.Prospect;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
 
 /**
  *
@@ -16,10 +20,9 @@ public class DAOProspect {
     /**
      *
      * @return
-     * @throws ExceptionMetier
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static ArrayList<Prospect> findAll() throws ExceptionMetier, ExceptionDAO {
+    public static ArrayList<Prospect> findAll() throws Exception {
         try {
             ArrayList<Prospect> prospects = new ArrayList<>();
             Connection connection = ConnexionManager.getConnexion();
@@ -39,25 +42,25 @@ public class DAOProspect {
                 String tel = res.getString("tel");
                 String mail = res.getString("mail");
                 String comm = res.getString("comm");
-                Date datepros = res.getDate("datepros");
+                //Convertis la date en LocalDate (stockée en date dans la BDD)
+                LocalDate datepros = LocalDate.parse(res.getString("datepros"));
                 String interesse = res.getString("interesse");
                 prospects.add(new Prospect(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, datepros,interesse));
             }
             return prospects;
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
-
     }
 
     /**
      *
      * @param name
      * @return
-     * @throws ExceptionMetier
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static Prospect findByName(String name) throws ExceptionMetier, ExceptionDAO {
+    public static Prospect findByName(String name) throws Exception {
         try {
             Connection connection = ConnexionManager.getConnexion();
             String query = "SELECT prospect.IDPROSPECT as id, prospect.raisonsociale as raisoc, prospect.numerorue as numrue, " +
@@ -77,11 +80,13 @@ public class DAOProspect {
             String tel = res.getString("tel");
             String mail = res.getString("mail");
             String comm = res.getString("comm");
-            Date datepros = res.getDate("datepros");
+            //Convertis la date en LocalDate (stockée en date dans la BDD)
+            LocalDate datepros = LocalDate.parse(res.getString("datepros"));
             String interesse = res.getString("interesse");
             Prospect prospect = new Prospect(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, datepros,interesse);
             return prospect;
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
@@ -89,12 +94,13 @@ public class DAOProspect {
     /**
      *
      * @param prospect
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static void create(Prospect prospect) throws ExceptionDAO {
+    public static void create(Prospect prospect) throws Exception {
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "INSERT INTO prospect(prospect.idprospect, prospect.raisonsociale, prospect.numerorue, prospect.nomrue, prospect.codepostal, prospect.ville, prospect.telephone, prospect.mail, prospect.commentaire, prospect.dateprospection, prospect.interesse) "
+            String query = "INSERT INTO prospect(prospect.idprospect, prospect.raisonsociale, prospect.numerorue, prospect.nomrue, " +
+                    "prospect.codepostal, prospect.ville, prospect.telephone, prospect.mail, prospect.commentaire, prospect.dateprospection, prospect.interesse) "
                     +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,prospect.getIdentifiant());
@@ -106,10 +112,12 @@ public class DAOProspect {
             stmt.setString(7,prospect.getTelephone());
             stmt.setString(8,prospect.getMail());
             stmt.setString(9,prospect.getCommentaire());
-            stmt.setString(10, prospect.getDateFormatSQL());
+            //convertis la LocalDate en String du bon format pour la requête SQL
+            stmt.setString(10,prospect.getDateProspection().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             stmt.setString(11,prospect.getInteresse());
             stmt.execute();
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
@@ -117,9 +125,9 @@ public class DAOProspect {
     /**
      *
      * @param prospect
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static void update(Prospect prospect) throws ExceptionDAO {
+    public static void update(Prospect prospect) throws Exception {
         try {
             Connection connection = ConnexionManager.getConnexion();
             String query = "UPDATE prospect SET prospect.raisonsociale = ?, prospect.numerorue = ?, prospect.nomrue = ?, "+
@@ -135,10 +143,12 @@ public class DAOProspect {
             stmt.setString(6,prospect.getTelephone());
             stmt.setString(7,prospect.getMail());
             stmt.setString(8,prospect.getCommentaire());
-            stmt.setString(9, prospect.getDateFormatSQL());
+            //convertis la LocalDate en String du bon format pour la requête SQL
+            stmt.setString(9, prospect.getDateProspection().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             stmt.setString(10,prospect.getInteresse());
             stmt.execute();
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
@@ -146,9 +156,9 @@ public class DAOProspect {
     /**
      *
      * @param prospect
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static void delete(Prospect prospect) throws ExceptionDAO {
+    public static void delete(Prospect prospect) throws Exception {
         try {
             Connection connection = ConnexionManager.getConnexion();
             String query = "DELETE FROM prospect WHERE prospect.idprospect = ?";
@@ -156,6 +166,7 @@ public class DAOProspect {
             stmt.setInt(1,prospect.getIdentifiant());
             stmt.execute();
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }

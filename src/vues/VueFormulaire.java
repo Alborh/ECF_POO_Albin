@@ -13,6 +13,7 @@ import outils.Outils;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 
 public class VueFormulaire extends JDialog {
@@ -20,7 +21,6 @@ public class VueFormulaire extends JDialog {
     private JButton buttonValider;
     private JButton buttonQuitter;
     private JButton retourAcceuilButton;
-
     private JPanel pannel;
     public JLabel labTitre;
     public JTextField textFieldRaisonSociale;
@@ -103,7 +103,7 @@ public class VueFormulaire extends JDialog {
                         textFieldTelephone.setText(prospect.getTelephone());
                         textFieldMail.setText(prospect.getMail());
                         textFieldCommentaires.setText(prospect.getCommentaire());
-                        dateTextField.setText(prospect.getDateFormatFormulaire());
+                        dateTextField.setText(prospect.getDateProspection().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                         if (prospect.getInteresse().equals("Non")) {
                             nonRadioButton.setSelected(true);
                             ouiRadioButton.setSelected(false);
@@ -147,16 +147,7 @@ public class VueFormulaire extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     ControleurFormulaire.onValider();
-                } catch (ExceptionMetier ex) {
-                    LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Metier : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
-                } catch (ExceptionDAO ex) {
-                    LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
-                } catch (ExceptionControleur ex) {
-                    LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : "+ex.getMessage());
+                } catch (ExceptionMetier | ExceptionControleur | ExceptionDAO ex) {
                     Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
                 } catch (Exception ex){

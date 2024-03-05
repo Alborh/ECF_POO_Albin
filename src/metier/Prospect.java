@@ -1,61 +1,48 @@
 package metier;
 
 import exception.ExceptionMetier;
+import log.LoggerPoo;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 /**
  *
  */
 public class Prospect extends Societe {
-    private Date dateProspection;
+    private LocalDate dateProspection;
     private String interesse;
 
     /**
      *
      * @param dateProspection
      */
-    public void setDateProspection(Date dateProspection) {
+    public void setDateProspection(LocalDate dateProspection) {
         this.dateProspection = dateProspection;
-    }
-
-    /**
-     * /!\ l'exception ne prend pas en compte la taille des différents mois
-     * @param dateProspection
-     * @throws ExceptionMetier
-     */
-    public void setDateProspection(String dateProspection) throws ExceptionMetier {
-        try {
-            Pattern patternDate = Pattern.compile("^((0[1-9])|([12][0-9])|(3[01]))/((0[0-9])|(1[012]))/([0-9])*$");
-            if(!patternDate.matcher(dateProspection).matches()){
-                throw (new ExceptionMetier("Mauvais format de date (doit être jj/MM/yyyy)"));
-            }
-            String pattern = "dd/MM/yyyy";
-            SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-            this.dateProspection = dateFormat.parse(dateProspection);
-        } catch (ParseException e) {
-            throw new ExceptionMetier("Mauvais format de date (doit être jj/MM/yyyy)");
-        }
     }
 
     /**
      *
      * @return
      */
-    public Date getDateProspection() {
+    public LocalDate getDateProspection() {
         return dateProspection;
     }
 
     /**
      *
      * @param interesse
-     * @throws ExceptionMetier
+     * @throws Exception
      */
-    public void setInteresse(String interesse) throws ExceptionMetier {
+    public void setInteresse(String interesse) throws Exception {
         if (!(interesse.equals("Oui") || interesse.equals("Non"))) {
+            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Métier : la valeur interesse doit être Oui ou Non");
             throw (new ExceptionMetier("la valeur interesse doit être Oui ou Non"));
         }
         this.interesse = interesse;
@@ -83,49 +70,9 @@ public class Prospect extends Societe {
      * @param interesse
      */
     public Prospect(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
-                    String ville, String telephone, String mail, String commentaire, Date dateProspection, String interesse) throws ExceptionMetier {
+                    String ville, String telephone, String mail, String commentaire, LocalDate dateProspection, String interesse) throws Exception {
         super(identifiant, raisonSociale, numeroRue, nomRue, codePostal, ville, telephone, mail, commentaire);
         setDateProspection(dateProspection);
         setInteresse(interesse);
-    }
-
-    /**
-     *
-     * @param identifiant
-     * @param raisonSociale
-     * @param numeroRue
-     * @param nomRue
-     * @param codePostal
-     * @param ville
-     * @param telephone
-     * @param mail
-     * @param commentaire
-     * @param dateProspection
-     * @param interesse
-     * @throws ExceptionMetier
-     */
-    public Prospect(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
-                    String ville, String telephone, String mail, String commentaire, String dateProspection, String interesse) throws ExceptionMetier {
-    super(identifiant,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail,commentaire);
-    setDateProspection(dateProspection);
-    setInteresse(interesse);
-    }
-
-    /**
-     *
-     * @return la date en format yyyy-MM-dd pour les requêtes sql
-     */
-    public String getDateFormatSQL(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(dateProspection);
-    }
-
-    /**
-     *
-     * @return la date en format dd/MM/yyyy pour le formulaire
-     */
-    public String getDateFormatFormulaire(){
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        return format.format(dateProspection);
     }
 }

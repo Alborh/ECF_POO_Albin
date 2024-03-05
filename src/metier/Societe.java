@@ -119,10 +119,11 @@ public abstract class Societe {
     /**
      *
      * @param telephone au moins 10 chiffres
-     * @throws ExceptionMetier
+     * @throws Exception
      */
-    public void setTelephone(String telephone) throws ExceptionMetier {
+    public void setTelephone(String telephone) throws Exception{
         if (telephone.length()<10){
+            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Métier : Numéro de téléphone trop court : doit avoir au moins 10 chiffres");
             throw (new ExceptionMetier("Numéro de téléphone trop court : doit avoir au moins 10 chiffres"));
         }
         this.telephone = telephone;
@@ -139,13 +140,8 @@ public abstract class Societe {
     /**
      *
      * @param mail [adresse]@[mail].[domaine]
-     * @throws ExceptionMetier
      */
-    public void setMail(String mail) throws ExceptionMetier {
-        Pattern patternMail = Pattern.compile("^(.*)@(.*)[.](.*)$");
-        if (!patternMail.matcher(mail).matches()){
-            throw (new ExceptionMetier("Email invalide : doit être au format [adresse]@[mail].[domaine]"));
-        }
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
@@ -191,10 +187,10 @@ public abstract class Societe {
      * @param telephone
      * @param mail
      * @param commentaire
-     * @throws ExceptionMetier
+     * @throws Exception
      */
     public Societe(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
-                   String ville, String telephone, String mail, String commentaire) throws ExceptionMetier {
+                   String ville, String telephone, String mail, String commentaire) throws Exception {
         setIdentifiant(identifiant);
         setRaisonSociale(raisonSociale);
         setNumeroRue(numeroRue);

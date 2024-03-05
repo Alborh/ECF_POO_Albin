@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestClient {
     @Test
-    void testGetChiffreDAffaire() throws ExceptionMetier {
+    void testGetChiffreDAffaire() throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -22,7 +22,22 @@ public class TestClient {
                 42);
         assertEquals(societe.getChiffreDAffaire(),2048);
     }
-
+    @Test
+    void testSetChiffreDAffaire() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setChiffreDAffaire(4096);
+        assertEquals(societe.getChiffreDAffaire(),4096);
+    }
     @Test
     void testSetChiffreDAffaireTropPetit(){
         Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
@@ -40,7 +55,7 @@ public class TestClient {
     }
 
     @Test
-    void testGetNbEmpoye() throws ExceptionMetier {
+    void testGetNbEmpoye() throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -54,7 +69,22 @@ public class TestClient {
                 42);
         assertEquals(societe.getNbEmploye(),42);
     }
-
+    @Test
+    void testSetNbEmploye() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setNbEmploye(84);
+        assertEquals(societe.getNbEmploye(),84);
+    }
     @Test
     void testSetNbEmployeTropPetit(){
         Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,

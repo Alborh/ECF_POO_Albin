@@ -25,7 +25,7 @@ public class ControleurAcceuil {
     /**
      *
      */
-    public static void onAfficher() throws ExceptionMetier, ExceptionDAO {
+    public static void onAfficher() throws Exception {
         String typeSociete;
         if (acceuil.clientRadioButton.isSelected()){
             typeSociete = "Client";
@@ -41,14 +41,13 @@ public class ControleurAcceuil {
      * @throws ExceptionMetier
      * @throws ExceptionDAO
      */
-    public static void onCreation() throws ExceptionMetier, ExceptionDAO {
+    public static void onCreation() throws Exception {
         String typeSociete;
         if (acceuil.clientRadioButton.isSelected()){
             typeSociete = "Client";
         }else {
             typeSociete = "Prospect";
         }
-        //System.out.println("Creation");
         onQuitter();
         ControleurFormulaire.init("Creation", typeSociete,"Creation");
 
@@ -59,7 +58,7 @@ public class ControleurAcceuil {
      * @throws ExceptionMetier
      * @throws ExceptionDAO
      */
-    public static void onModifier() throws ExceptionMetier, ExceptionDAO {
+    public static void onModifier() throws Exception {
         String typeSociete;
         if (acceuil.clientRadioButton.isSelected()){
             typeSociete = "Client";
@@ -77,7 +76,7 @@ public class ControleurAcceuil {
      * @throws ExceptionMetier
      * @throws ExceptionDAO
      */
-    public static void onSupprimer() throws ExceptionMetier, ExceptionDAO {
+    public static void onSupprimer() throws Exception {
         String typeSociete;
         if (acceuil.clientRadioButton.isSelected()){
             typeSociete = "Client";
@@ -101,7 +100,7 @@ public class ControleurAcceuil {
      * @throws ExceptionMetier
      * @throws ExceptionDAO
      */
-    public static void choixSocieteSetChoix() throws ExceptionMetier, ExceptionDAO {
+    public static void choixSocieteSetChoix() throws Exception {
         if (acceuil.clientRadioButton.isSelected()){
             acceuil.comboBoxChoixSociete.removeAllItems();
             ArrayList<Client> clients = DAOClient.findAll();

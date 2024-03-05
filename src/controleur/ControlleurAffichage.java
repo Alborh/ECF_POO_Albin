@@ -11,6 +11,7 @@ import vues.VueAffichage;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ControlleurAffichage {
@@ -22,9 +23,8 @@ public class ControlleurAffichage {
      * @throws ExceptionMetier
      * @throws ExceptionDAO
      */
-    public static void init(String typeSociete) throws ExceptionMetier, ExceptionDAO {
+    public static void init(String typeSociete) throws Exception {
         vueAffichage = new VueAffichage();
-        vueAffichage.setSize(1200,400);
         vueAffichage.labTitre.setText("Affichage "+typeSociete);
         if (typeSociete.equals("Client")){
             ArrayList<Client> clients = DAOClient.findAll();
@@ -58,7 +58,7 @@ public class ControlleurAffichage {
                 data[i][5] = prospects.get(i).getTelephone();
                 data[i][6] = prospects.get(i).getMail();
                 data[i][7] = prospects.get(i).getCommentaire();
-                data[i][8] = prospects.get(i).getDateFormatFormulaire();
+                data[i][8] = prospects.get(i).getDateProspection().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 data[i][9] = prospects.get(i).getInteresse();
             }
             ModelAffichage modelAffichage = new ModelAffichage(data, titre);

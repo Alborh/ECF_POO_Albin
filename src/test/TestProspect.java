@@ -8,11 +8,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class TestProspect {
     @Test
-    void testGetDateProspection() throws ExceptionMetier, ParseException {
+    void testGetDateProspection() throws Exception {
         Prospect prospect = new Prospect(1,
                 "test",
                 "42",
@@ -22,28 +24,12 @@ public class TestProspect {
                 "4242424242",
                 "test@test.com",
                 "test",
-                "27/02/2024",
+                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 "Oui");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        assertEquals(prospect.getDateProspection(),dateFormat.parse("27/02/2024"));
-    }
-    @ParameterizedTest
-    @ValueSource(strings = {"27-02-2024","02/27/2024","42/42/42","2024/02/27"})
-    void testSetDateProspectionMauvaisFormat(String date){
-        Exception exception = assertThrows(ExceptionMetier.class,()->new Prospect(1,
-                "test","42",
-                "Rue test",
-                "42042",
-                "Testville",
-                "4242424242",
-                "test@test.com",
-                "test",
-                date,
-                "Oui"));
-        assertEquals("Mauvais format de date (doit être jj/MM/yyyy)",exception.getMessage());
+        assertEquals(prospect.getDateProspection(),LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
     @Test
-    void testGetDateFormatSQL() throws ExceptionMetier {
+    void testSetDateProspection() throws Exception {
         Prospect prospect = new Prospect(1,
                 "test",
                 "42",
@@ -53,13 +39,14 @@ public class TestProspect {
                 "4242424242",
                 "test@test.com",
                 "test",
-                "27/02/2024",
+                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 "Oui");
-        assertEquals("2024-02-27",prospect.getDateFormatSQL());
+        prospect.setDateProspection(LocalDate.parse("28/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        assertEquals(prospect.getDateProspection(),LocalDate.parse("28/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
     @ParameterizedTest
     @ValueSource(strings = {"Oui","Non"})
-    void testGetInterresse(String interet) throws ExceptionMetier {
+    void testGetInterresse(String interet) throws Exception {
         Prospect prospect = new Prospect(1,
                 "test",
                 "42",
@@ -69,9 +56,25 @@ public class TestProspect {
                 "4242424242",
                 "test@test.com",
                 "test",
-                "27/02/2024",
+                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 interet);
         assertEquals(interet,prospect.getInteresse());
+    }
+    @Test
+    void testSetInteresse() throws Exception {
+        Prospect prospect = new Prospect(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                "Oui");
+        prospect.setInteresse("Non");
+        assertEquals("Non",prospect.getInteresse());
     }
     @Test
     void testSetInterresseIncorrect(){
@@ -84,7 +87,7 @@ public class TestProspect {
                 "4242424242",
                 "test@test.com",
                 "test",
-                "27/02/2024",
+                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 "Peut-être"));
         assertEquals("la valeur interesse doit être Oui ou Non",exception.getMessage());
     }

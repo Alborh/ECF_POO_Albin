@@ -14,10 +14,9 @@ public class DAOClient {
     /**
      *
      * @return
-     * @throws ExceptionMetier
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static ArrayList<Client> findAll() throws ExceptionMetier, ExceptionDAO {
+    public static ArrayList<Client> findAll() throws Exception {
         try {
             ArrayList<Client> clients = new ArrayList<>();
             Connection connection = ConnexionManager.getConnexion();
@@ -43,6 +42,7 @@ public class DAOClient {
             }
             return clients;
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
@@ -51,10 +51,9 @@ public class DAOClient {
      *
      * @param name
      * @return
-     * @throws ExceptionMetier
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static Client findByName(String name) throws ExceptionMetier, ExceptionDAO {
+    public static Client findByName(String name) throws Exception {
         try {
             Connection connection = ConnexionManager.getConnexion();
             String query = "SELECT client.idclient as id, client.raisonsociale as raisoc, client.numerorue as numrue, client.nomrue as nomrue," +
@@ -78,6 +77,7 @@ public class DAOClient {
             Client client = new Client(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, chaff, nbemp);
             return client;
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
@@ -85,12 +85,13 @@ public class DAOClient {
     /**
      *
      * @param client
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static void create(Client client) throws ExceptionDAO {
+    public static void create(Client client) throws Exception{
         try {
             Connection connection = ConnexionManager.getConnexion();
-            String query = "INSERT INTO client(client.idclient, client.raisonsociale, client.numerorue, client.nomrue, client.codepostal, client.ville, client.telephone, client.mail, client.commentaire, client.chiffredaffaire, client.NBEMPLOYES)" +
+            String query = "INSERT INTO client(client.idclient, client.raisonsociale, client.numerorue, client.nomrue, client.codepostal, " +
+                    "client.ville, client.telephone, client.mail, client.commentaire, client.chiffredaffaire, client.NBEMPLOYES)" +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,client.getIdentifiant());
@@ -106,6 +107,7 @@ public class DAOClient {
             stmt.setInt(11,client.getNbEmploye());
             stmt.execute();
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
@@ -113,9 +115,9 @@ public class DAOClient {
     /**
      *
      * @param client
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static void update(Client client) throws ExceptionDAO {
+    public static void update(Client client) throws Exception {
         try {
             Connection connection = ConnexionManager.getConnexion();
             String query = "UPDATE client SET client.raisonsociale = ?, client.numerorue = ?, client.nomrue = ?, " +
@@ -135,6 +137,7 @@ public class DAOClient {
             stmt.setInt(10,client.getNbEmploye());
             stmt.execute();
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }
@@ -142,9 +145,9 @@ public class DAOClient {
     /**
      *
      * @param client
-     * @throws ExceptionDAO
+     * @throws Exception
      */
-    public static void delete(Client client) throws ExceptionDAO {
+    public static void delete(Client client) throws Exception {
         try {
             Connection connection = ConnexionManager.getConnexion();
             String query = "DELETE FROM client WHERE client.idclient = ?";
@@ -152,6 +155,7 @@ public class DAOClient {
             stmt.setInt(1,client.getIdentifiant());
             stmt.execute();
         } catch (SQLException | IOException e){
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
             throw (new ExceptionDAO("Erreur : "+e.getMessage()));
         }
     }

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestSociete {
 
     @Test
-    void testGetIdentifiant() throws ExceptionMetier {
+    void testGetIdentifiant() throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -25,9 +25,24 @@ public class TestSociete {
                 42);
         assertEquals(societe.getIdentifiant(),1);
     }
-
     @Test
-    void testGetRaisonSociale()throws ExceptionMetier {
+    void testSetIdentifiant() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setIdentifiant(2);
+        assertEquals(societe.getIdentifiant(),2);
+    }
+    @Test
+    void testGetRaisonSociale()throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -43,7 +58,7 @@ public class TestSociete {
     }
 
     @Test
-    void testGetNumeroRue()throws ExceptionMetier {
+    void testGetNumeroRue()throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -57,9 +72,24 @@ public class TestSociete {
                 42);
         assertEquals(societe.getNumeroRue(),"42");
     }
-
     @Test
-    void testGetNomRue()throws ExceptionMetier {
+    void testSetNumeroRue() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setNumeroRue("21");
+        assertEquals(societe.getNumeroRue(),"21");
+    }
+    @Test
+    void testGetNomRue()throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -75,7 +105,7 @@ public class TestSociete {
     }
 
     @Test
-    void testGetCodePostal()throws ExceptionMetier {
+    void testGetCodePostal()throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -89,9 +119,24 @@ public class TestSociete {
                 42);
         assertEquals(societe.getCodePostal(),"42042");
     }
-
     @Test
-    void testGetVille()throws ExceptionMetier {
+    void testSetCodePostal() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setCodePostal("21021");
+        assertEquals(societe.getCodePostal(),"21021");
+    }
+    @Test
+    void testGetVille()throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -105,9 +150,24 @@ public class TestSociete {
                 42);
         assertEquals(societe.getVille(),"Testville");
     }
-
     @Test
-    void testGetTelephone()throws ExceptionMetier {
+    void testSetVille() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setVille("Testbourg");
+        assertEquals(societe.getVille(),"Testbourg");
+    }
+    @Test
+    void testGetTelephone()throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -121,7 +181,22 @@ public class TestSociete {
                 42);
         assertEquals(societe.getTelephone(),"4242424242");
     }
-
+    @Test
+    void testSetTelephone() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setTelephone("2121212121");
+        assertEquals(societe.getTelephone(),"2121212121");
+    }
     @Test
     void testSetTelephoneTropPetit(){
         Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
@@ -139,7 +214,7 @@ public class TestSociete {
     }
 
     @Test
-    void testGetMail()throws ExceptionMetier {
+    void testGetMail()throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -153,26 +228,24 @@ public class TestSociete {
                 42);
         assertEquals(societe.getMail(),"test@test.com");
     }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"test","test@test","test.com"})
-    void testSetMailErreur(String mail){
-        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+    @Test
+    void testSetMail() throws Exception {
+        Client societe = new Client(1,
                 "test",
                 "42",
                 "Rue test",
                 "42042",
                 "Testville",
                 "4242424242",
-                mail,
+                "test@test.com",
                 "test",
                 2048,
-                42));
-        assertEquals("Email invalide : doit être au format [adresse]@[mail].[domaine]",exception.getMessage());
+                42);
+        societe.setMail("adresse@mail.com");
+        assertEquals(societe.getMail(),"adresse@mail.com");
     }
-
     @Test
-    void testGetCommentaire() throws ExceptionMetier {
+    void testGetCommentaire() throws Exception {
         Client societe = new Client(1,
                 "test",
                 "42",
@@ -185,6 +258,22 @@ public class TestSociete {
                 2048,
                 42);
         assertEquals(societe.getCommentaire(),"test");
+    }
+    @Test
+    void testSEtCommentaire() throws Exception {
+        Client societe = new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42);
+        societe.setCommentaire("commentaire");
+        assertEquals(societe.getCommentaire(),"commentaire");
     }
 }
 

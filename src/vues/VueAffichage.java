@@ -17,6 +17,7 @@ public class VueAffichage extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonRetourAcceuil);
+        setSize(1200,400);
 
         buttonRetourAcceuil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

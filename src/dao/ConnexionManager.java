@@ -51,8 +51,8 @@ public class ConnexionManager {
             public void run(){
                 if (connexion !=null){
                     try {
-                        LoggerPoo.LOGGER.log(Level.INFO,"Database fermée");
                         connexion.close();
+                        LoggerPoo.LOGGER.log(Level.INFO,"Database fermée");
                         System.out.println("Connection fermée");
                     } catch (SQLException e){
                         LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+e.getMessage());

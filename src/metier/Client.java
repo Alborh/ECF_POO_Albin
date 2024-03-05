@@ -1,6 +1,10 @@
 package metier;
 
 import exception.ExceptionMetier;
+import log.LoggerPoo;
+
+import java.time.LocalDate;
+import java.util.logging.Level;
 
 /**
  *
@@ -12,10 +16,11 @@ public class Client extends Societe{
     /**
      *
      * @param chiffreDAffaire >200
-     * @throws ExceptionMetier
+     * @throws Exception
      */
-    public void setChiffreDAffaire(double chiffreDAffaire) throws ExceptionMetier {
+    public void setChiffreDAffaire(double chiffreDAffaire) throws Exception {
         if (chiffreDAffaire<200){
+            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Métier : Le chiffre d'affaire doit être supérieur à 200");
             throw (new ExceptionMetier("Le chiffre d'affaire doit être supérieur à 200"));
         }
         this.chiffreDAffaire = chiffreDAffaire;
@@ -32,10 +37,11 @@ public class Client extends Societe{
     /**
      *
      * @param nbEmploye >0
-     * @throws ExceptionMetier
+     * @throws Exception
      */
-    public void setNbEmploye(int nbEmploye) throws ExceptionMetier {
+    public void setNbEmploye(int nbEmploye) throws Exception {
         if (nbEmploye<1){
+            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Métier : Le nombre d'employé doit être supérieur à 0");
             throw (new ExceptionMetier("Le nombre d'employé doit être supérieur à 0"));
         }
         this.nbEmploye = nbEmploye;
@@ -62,10 +68,10 @@ public class Client extends Societe{
      * @param commentaire
      * @param chiffreDAffaire
      * @param nbEmploye
-     * @throws ExceptionMetier
+     * @throws Exception
      */
     public Client(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
-                  String ville, String telephone, String mail, String commentaire, double chiffreDAffaire, int nbEmploye) throws ExceptionMetier {
+                  String ville, String telephone, String mail, String commentaire, double chiffreDAffaire, int nbEmploye) throws Exception {
         super(identifiant,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail,commentaire);
         setChiffreDAffaire(chiffreDAffaire);
         setNbEmploye(nbEmploye);
