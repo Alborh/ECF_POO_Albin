@@ -12,7 +12,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 
 /**
- *
+ * Singleton de gestion de la connextion à la base de données
  */
 public class ConnexionManager {
     private static Connection connexion;
@@ -22,7 +22,7 @@ public class ConnexionManager {
      * @throws IOException
      * @throws SQLException
      */
-    private ConnexionManager() throws IOException, SQLException {
+    private ConnexionManager() throws Exception {
         Properties dataProperties = new Properties();
         File fichier = new File("database.properties");
         FileInputStream input = new FileInputStream(fichier);
@@ -34,25 +34,27 @@ public class ConnexionManager {
     }
     /**
      * renvoie la connexion à la base de données
-     * @return
+     * @return Connection
      * @throws SQLException
      * @throws IOException
      */
-    public static Connection getConnexion() throws SQLException, IOException {
+    public static Connection getConnexion() throws Exception {
         if (connexion==null){
             new ConnexionManager();
         }
         return connexion;
     }
 
-    //Gestion de la fermeture de la connection
+    /*
+      Gestion de la fermeture de la connection
+     */
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(){
             public void run(){
                 if (connexion !=null){
                     try {
-                        connexion.close();
                         LoggerPoo.LOGGER.log(Level.INFO,"Database fermée");
+                        connexion.close();
                         System.out.println("Connection fermée");
                     } catch (SQLException e){
                         LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+e.getMessage());

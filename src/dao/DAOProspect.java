@@ -14,13 +14,13 @@ import java.util.Date;
 import java.util.logging.Level;
 
 /**
- *
+ * Classe d'accès objet de
  */
 public class DAOProspect {
     /**
-     *
-     * @return
-     * @throws Exception
+     * Liste de tout les prospects de la base de donnée
+     * @return ArrayListe de Prospects
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static ArrayList<Prospect> findAll() throws Exception {
         try {
@@ -55,10 +55,10 @@ public class DAOProspect {
     }
 
     /**
-     *
-     * @param name
-     * @return
-     * @throws Exception
+     * Retrouve un prospect de la base de donnée en renseignant sa raison sociale
+     * @param name String raison sociale
+     * @return Prospect recherché
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static Prospect findByName(String name) throws Exception {
         try {
@@ -92,9 +92,9 @@ public class DAOProspect {
     }
 
     /**
-     *
-     * @param prospect
-     * @throws Exception
+     * Crée le prospect dans la base de données
+     * @param prospect Prospect
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static void create(Prospect prospect) throws Exception {
         try {
@@ -123,9 +123,9 @@ public class DAOProspect {
     }
 
     /**
-     *
-     * @param prospect
-     * @throws Exception
+     * Modifie le prospect dans la base de données
+     * @param prospect Prospect
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static void update(Prospect prospect) throws Exception {
         try {
@@ -154,9 +154,9 @@ public class DAOProspect {
     }
 
     /**
-     *
-     * @param prospect
-     * @throws Exception
+     * Supprime le prospect dans la base de données
+     * @param prospect Prospect
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static void delete(Prospect prospect) throws Exception {
         try {

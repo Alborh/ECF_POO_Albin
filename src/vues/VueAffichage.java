@@ -1,33 +1,56 @@
 package vues;
 
 import controleur.ControlleurAffichage;
+import exception.ExceptionDAO;
+import exception.ExceptionMetier;
+import log.LoggerPoo;
+import outils.Outils;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.logging.Level;
 
 public class VueAffichage extends JDialog {
     private JPanel contentPane;
     private JButton buttonRetourAcceuil;
     private JButton buttonQuitter;
-    public JScrollPane scrollPane;
-    public JPanel pannelPrincipal;
-    public JLabel labTitre;
+    private JScrollPane scrollPane;
+    private JPanel pannelPrincipal;
+    private JLabel labTitre;
 
-    public VueAffichage() {
+    public VueAffichage(String typeSociete) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonRetourAcceuil);
-        setSize(1200,400);
+        initComposants(typeSociete);
+        actionListeners();
+    }
 
+    public void initComposants(String typeSociete){
+        try {
+            setSize(1200, 400);
+            labTitre.setText("Affichage " + typeSociete);
+            scrollPane.getViewport().add(new JScrollPane(ControlleurAffichage.tableAffichage(typeSociete)));
+        } catch (ExceptionMetier | ExceptionDAO ex) {
+            Outils.fenetrePopUp("Erreur",ex.getMessage());
+            System.out.println(ex.getMessage());
+        } catch (Exception ex){
+            LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
+            Outils.fenetrePopUp("Erreur",ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
+    public void actionListeners(){
         buttonRetourAcceuil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 ControlleurAffichage.onRetourAcceuil();
             }
         });
 
         buttonQuitter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ControlleurAffichage.onQuitter();
+                dispose();
             }
         });
 
@@ -35,14 +58,14 @@ public class VueAffichage extends JDialog {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                ControlleurAffichage.onQuitter();
+                dispose();
             }
         });
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ControlleurAffichage.onQuitter();
+                dispose();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }

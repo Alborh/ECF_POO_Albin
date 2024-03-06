@@ -10,11 +10,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+/**
+ * Classe d'accès objet de Client
+ */
 public class DAOClient {
     /**
-     *
-     * @return
-     * @throws Exception
+     * Liste de tout les cilents de la base de donnée
+     * @return ArrayList de CLients
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static ArrayList<Client> findAll() throws Exception {
         try {
@@ -48,10 +51,10 @@ public class DAOClient {
     }
 
     /**
-     *
-     * @param name
-     * @return
-     * @throws Exception
+     * Retrouve un client de la base de donnée en renseignant sa raison sociale
+     * @param name String raison sociale
+     * @return Client recherché
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static Client findByName(String name) throws Exception {
         try {
@@ -83,9 +86,9 @@ public class DAOClient {
     }
 
     /**
-     *
-     * @param client
-     * @throws Exception
+     * Crée le client dans la base de donnée
+     * @param client Client
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static void create(Client client) throws Exception{
         try {
@@ -113,9 +116,9 @@ public class DAOClient {
     }
 
     /**
-     *
-     * @param client
-     * @throws Exception
+     * Modifie le client dans la base de données
+     * @param client Client
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static void update(Client client) throws Exception {
         try {
@@ -143,9 +146,9 @@ public class DAOClient {
     }
 
     /**
-     *
-     * @param client
-     * @throws Exception
+     * Supprime le client dans la base de données
+     * @param client Client
+     * @throws Exception remonte les exceptions SQLException er IOException
      */
     public static void delete(Client client) throws Exception {
         try {

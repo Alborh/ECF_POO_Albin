@@ -3,7 +3,6 @@ package metier;
 import exception.ExceptionMetier;
 import log.LoggerPoo;
 
-import java.time.LocalDate;
 import java.util.logging.Level;
 
 /**
@@ -14,9 +13,9 @@ public class Client extends Societe{
     private int nbEmploye;
 
     /**
-     *
-     * @param chiffreDAffaire >200
-     * @throws Exception
+     * setter du chiffre d'affaire
+     * @param chiffreDAffaire double >=200
+     * @throws Exception si <200
      */
     public void setChiffreDAffaire(double chiffreDAffaire) throws Exception {
         if (chiffreDAffaire<200){
@@ -27,17 +26,17 @@ public class Client extends Societe{
     }
 
     /**
-     *
-     * @return
+     * getter du chiffre d'affaire
+     * @return double chiffre d'affaire
      */
     public double getChiffreDAffaire() {
         return chiffreDAffaire;
     }
 
     /**
-     *
-     * @param nbEmploye >0
-     * @throws Exception
+     * setter du nombre d'employés
+     * @param nbEmploye int >0
+     * @throws Exception si =<0
      */
     public void setNbEmploye(int nbEmploye) throws Exception {
         if (nbEmploye<1){
@@ -48,27 +47,27 @@ public class Client extends Societe{
     }
 
     /**
-     *
-     * @return
+     * getter du nombre d'employés
+     * @return int nombre d'employés
      */
     public int getNbEmploye() {
         return nbEmploye;
     }
 
     /**
-     *
-     * @param identifiant
-     * @param raisonSociale
-     * @param numeroRue
-     * @param nomRue
-     * @param codePostal
-     * @param ville
-     * @param telephone
-     * @param mail
-     * @param commentaire
-     * @param chiffreDAffaire
-     * @param nbEmploye
-     * @throws Exception
+     * Contructeur de Client
+     * @param identifiant int
+     * @param raisonSociale String
+     * @param numeroRue String
+     * @param nomRue String
+     * @param codePostal String
+     * @param ville String
+     * @param telephone String
+     * @param mail String
+     * @param commentaire String
+     * @param chiffreDAffaire double
+     * @param nbEmploye int
+     * @throws Exception remonte les exceptions
      */
     public Client(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
                   String ville, String telephone, String mail, String commentaire, double chiffreDAffaire, int nbEmploye) throws Exception {

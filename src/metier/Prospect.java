@@ -3,14 +3,10 @@ package metier;
 import exception.ExceptionMetier;
 import log.LoggerPoo;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
 import java.util.logging.Level;
-import java.util.regex.Pattern;
+
 
 /**
  *
@@ -20,25 +16,25 @@ public class Prospect extends Societe {
     private String interesse;
 
     /**
-     *
-     * @param dateProspection
+     * setter date de prospection
+     * @param dateProspection LocalDate
      */
     public void setDateProspection(LocalDate dateProspection) {
         this.dateProspection = dateProspection;
     }
 
     /**
-     *
-     * @return
+     * getter date de prospection
+     * @return LocalDate date de prospection
      */
     public LocalDate getDateProspection() {
         return dateProspection;
     }
 
     /**
-     *
-     * @param interesse
-     * @throws Exception
+     * setter interessé
+     * @param interesse String "Oui" ou "Non"
+     * @throws Exception si n'est pas "Oui" ou "Non"
      */
     public void setInteresse(String interesse) throws Exception {
         if (!(interesse.equals("Oui") || interesse.equals("Non"))) {
@@ -49,25 +45,26 @@ public class Prospect extends Societe {
     }
 
     /**
-     *
-     * @return
+     * getter interessé
+     * @return String interessé
      */
     public String getInteresse() {
         return interesse;
     }
 
     /**
-     * @param identifiant
-     * @param raisonSociale
-     * @param numeroRue
-     * @param nomRue
-     * @param codePostal
-     * @param ville
-     * @param telephone
-     * @param mail
-     * @param commentaire
-     * @param dateProspection
-     * @param interesse
+     * Contructeur de Prospect
+     * @param identifiant int
+     * @param raisonSociale String
+     * @param numeroRue String
+     * @param nomRue String
+     * @param codePostal String
+     * @param ville String
+     * @param telephone String
+     * @param mail String
+     * @param commentaire String
+     * @param dateProspection LocalDate
+     * @param interesse String
      */
     public Prospect(int identifiant, String raisonSociale, String numeroRue, String nomRue, String codePostal,
                     String ville, String telephone, String mail, String commentaire, LocalDate dateProspection, String interesse) throws Exception {

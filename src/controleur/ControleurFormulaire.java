@@ -3,8 +3,6 @@ package controleur;
 import dao.DAOClient;
 import dao.DAOProspect;
 import exception.ExceptionControleur;
-import exception.ExceptionDAO;
-import exception.ExceptionMetier;
 import log.LoggerPoo;
 import metier.Client;
 import metier.Prospect;
@@ -16,70 +14,86 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+/**
+ * Contrôleur de la vue Formulaire
+ */
 public class ControleurFormulaire {
     private static String formulaire;
     private static String societe;
 
-    private static VueFormulaire vueFormulaire;
-
     /**
-     *
-     * @param typeFormulaire
-     * @param typeSociete
-     * @param raisonSociale
+     * Appelle la vue formulaire
+     * @param typeFormulaire String Creation, Modification ou Suppression
+     * @param typeSociete String Client ou Prospect
+     * @param raisonSociale String raison sociale de la société selectionnée (sauf pour Création)
      */
     public static void init(String typeFormulaire, String typeSociete, String raisonSociale) {
         formulaire = typeFormulaire;
         societe = typeSociete;
-        vueFormulaire = new VueFormulaire(formulaire,societe,raisonSociale);
+        VueFormulaire vueFormulaire = new VueFormulaire(formulaire,societe,raisonSociale);
         vueFormulaire.setVisible(true);
     }
 
     /**
-     *
-     * @throws Exception
+     * Valide le formulaire et effectue l'action sur la base de données, puis reviens à l'acceuil
+     * @param raisonSociale String
+     * @param numeroRue String
+     * @param nomRue String
+     * @param codePostal String
+     * @param ville String
+     * @param telephone String
+     * @param mail String
+     * @param commentaire String
+     * @param chiffreDAffaire String
+     * @param nbEmploye String
+     * @param dateProspect String
+     * @param interesse String
+     * @param id int
+     * @throws Exception remonte les exceptions
      */
-    public static void onValider() throws Exception {
-        if (vueFormulaire.textFieldRaisonSociale.getText().isEmpty()){
+    public static void onValider(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
+                                 String telephone, String mail, String commentaire, String chiffreDAffaire, String nbEmploye,
+                                 String dateProspect, String interesse, int id) throws Exception {
+        if (raisonSociale.isEmpty()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : raison sociale ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : raison sociale ne dois pas être vide"));
         }
-        if (vueFormulaire.textFieldNumeroRue.getText().isEmpty()){
+        if (numeroRue.isEmpty()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : numéro rue ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : numéro rue ne dois pas être vide"));
         }
-        if(vueFormulaire.textFieldNomRue.getText().isEmpty()){
+        if(nomRue.isEmpty()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : nom rue ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : nom rue ne dois pas être vide"));
         }
-        if (vueFormulaire.textFieldCodePostal.getText().isEmpty()){
+        if (codePostal.isEmpty()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : code postal ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : code postal ne dois pas être vide"));
         }
-        if (vueFormulaire.textFieldVille.getText().isEmpty()){
+        if (ville.isEmpty()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : ville ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : ville ne dois pas être vide"));
         }
-        if (vueFormulaire.textFieldTelephone.getText().isEmpty()){
+        if (telephone.isEmpty()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : telephone ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : telephone ne dois pas être vide"));
         }
-        if (vueFormulaire.textFieldMail.getText().isEmpty()){
+        if (mail.isEmpty()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : mail ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : mail ne dois pas être vide"));
         }
         if (societe.equals("Client")){
-            if (vueFormulaire.textFieldChiffreDAffaire.getText().isEmpty()){
+            if (chiffreDAffaire.isEmpty()){
                 LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : chiffre d'affaire ne dois pas être vide");
                 throw (new ExceptionControleur("Erreur : chiffre d'affaire ne dois pas être vide"));
             }
-            if (vueFormulaire.textFieldNombreEmploye.getText().isEmpty()){
+            if (nbEmploye.isEmpty()){
                 LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : nombre d'employés ne dois pas être vide");
                 throw (new ExceptionControleur("Erreur : nombre d'employés ne dois pas être vide"));
             }
         }
         if (societe.equals("Prospect")){
-            if (vueFormulaire.dateTextField.getText().isEmpty()){
+            if (dateProspect.isEmpty()){
                 LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : date de prospection ne dois pas être vide");
                 throw (new ExceptionControleur("Erreur : date de prospection ne dois pas être vide"));
             }
@@ -87,31 +101,35 @@ public class ControleurFormulaire {
         switch (formulaire){
             case "Creation"->{
                 if (societe.equals("Client")){
-                    Client client = createClient();
+                    Client client = createClient(raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                            Double.parseDouble(chiffreDAffaire),Integer.parseInt(nbEmploye), id);
                     DAOClient.create(client);
                 }
                 else {
-                    Prospect prospect = createProspect();
+                    Prospect prospect = createProspect(raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                            dateProspect, interesse, id);
                     DAOProspect.create(prospect);
                 }
             }
             case "Modification"->{
                 if(societe.equals("Client")){
-                    Client client = createClient();
+                    Client client = createClient(raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                            Double.parseDouble(chiffreDAffaire),Integer.parseInt(nbEmploye), id);
                     DAOClient.update(client);
                 }
                 else {
-                    Prospect prospect = createProspect();
+                    Prospect prospect = createProspect(raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                            dateProspect, interesse, id);
                     DAOProspect.update(prospect);
                 }
             }
             case "Suppression"->{
                 if(societe.equals("Client")){
-                    Client client = DAOClient.findByName(vueFormulaire.textFieldRaisonSociale.getText());
+                    Client client = DAOClient.findByName(raisonSociale);
                     DAOClient.delete(client);
                 }
                 else {
-                    Prospect prospect = DAOProspect.findByName(vueFormulaire.textFieldRaisonSociale.getText());
+                    Prospect prospect = DAOProspect.findByName(raisonSociale);
                     DAOProspect.delete(prospect);
                 }
             }
@@ -120,29 +138,34 @@ public class ControleurFormulaire {
     }
 
     /**
-     *
+     * Appelle la vue Acceuil
      */
     public static void onRetourAcceuil(){
-        onQuitter();
         ControleurAcceuil.init();
     }
 
     /**
-     *
-     */
-    public static void onQuitter(){
-        vueFormulaire.dispose();
-    }
-
-    /**
-     *
+     * Crée un client pour la DAO
+     * @param raisonSociale String
+     * @param numeroRue String
+     * @param nomRue String
+     * @param codePostal String
+     * @param ville String
+     * @param telephone String
+     * @param mail String
+     * @param commentaire String
+     * @param chiffreDAffaire double
+     * @param nbEmploye int
+     * @param id int
      * @return le client donné en entrée dans le formulaire
-     * @throws Exception
+     * @throws Exception remonte les exceptions
      */
-    private static Client createClient() throws Exception {
+    private static Client createClient(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
+                                       String telephone, String mail, String commentaire, double chiffreDAffaire, int nbEmploye,
+                                       int id) throws Exception {
         int identifiant = 0;
+        ArrayList<Client> clients = DAOClient.findAll();
         if(formulaire.equals("Creation")) {
-            ArrayList<Client> clients = DAOClient.findAll();
             for (Client client : clients) {
                 if (client.getIdentifiant() > identifiant) {
                     identifiant = client.getIdentifiant();
@@ -150,18 +173,23 @@ public class ControleurFormulaire {
             }
             identifiant++;
         } else {
-            identifiant = DAOClient.findByName(vueFormulaire.textFieldRaisonSociale.getText()).getIdentifiant();
+            identifiant = id;
         }
-        String raisonSociale = vueFormulaire.textFieldRaisonSociale.getText();
-        String numeroRue = vueFormulaire.textFieldNumeroRue.getText();
-        String nomRue = vueFormulaire.textFieldNomRue.getText();
-        String codePostal = vueFormulaire.textFieldCodePostal.getText();
-        String ville = vueFormulaire.textFieldVille.getText();
-        String telephone = vueFormulaire.textFieldTelephone.getText();
-        String mail = vueFormulaire.textFieldMail.getText();
-        String commentaire = vueFormulaire.textFieldCommentaires.getText();
-        double chiffreDAffaire = Double.parseDouble(vueFormulaire.textFieldChiffreDAffaire.getText());
-        int nbEmploye = Integer.parseInt(vueFormulaire.textFieldNombreEmploye.getText());
+        //test unicité de raison sociale
+        for (Client client : clients){
+            if (formulaire.equals("Modification")){
+                if (client.getIdentifiant() != identifiant && client.getRaisonSociale().equals(raisonSociale)){
+                    LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Raison sociale déjà existante");
+                    throw (new ExceptionControleur("Erreur : Raison sociale déjà existante"));
+                }
+            } else {
+                if (client.getRaisonSociale().equals(raisonSociale)){
+                    LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Raison sociale déjà existante");
+                    throw (new ExceptionControleur("Erreur : Raison sociale déjà existante"));
+                }
+            }
+        }
+        //test regex mail
         Pattern patternMail = Pattern.compile("^(.*)@(.*)[.](.*)$");
         if (!patternMail.matcher(mail).matches()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]");
@@ -172,14 +200,27 @@ public class ControleurFormulaire {
     }
 
     /**
-     *
+     * crée un prospect pour la DAo
+     * @param raisonSociale String
+     * @param numeroRue String
+     * @param nomRue String
+     * @param codePostal String
+     * @param ville String
+     * @param telephone String
+     * @param mail String
+     * @param commentaire String
+     * @param dateProspect String
+     * @param interesse String
+     * @param id int
      * @return le prospect donnée en entrée par le formulaire
-     * @throws Exception
+     * @throws Exception remonte les exceptions
      */
-    private static Prospect createProspect() throws Exception {
+    private static Prospect createProspect(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
+                                           String telephone, String mail, String commentaire, String dateProspect, String interesse,
+                                           int id) throws Exception {
         int identifiant = 0;
+        ArrayList<Prospect> prospects = DAOProspect.findAll();
         if (formulaire.equals("Creation")) {
-            ArrayList<Prospect> prospects = DAOProspect.findAll();
             for (Prospect prospect : prospects) {
                 if (prospect.getIdentifiant() > identifiant) {
                     identifiant = prospect.getIdentifiant();
@@ -187,23 +228,23 @@ public class ControleurFormulaire {
             }
             identifiant++;
         } else {
-            identifiant = DAOProspect.findByName(vueFormulaire.textFieldRaisonSociale.getText()).getIdentifiant();
+            identifiant = id;
         }
-        String raisonSociale = vueFormulaire.textFieldRaisonSociale.getText();
-        String numeroRue = vueFormulaire.textFieldNumeroRue.getText();
-        String nomRue = vueFormulaire.textFieldNomRue.getText();
-        String codePostal = vueFormulaire.textFieldCodePostal.getText();
-        String ville = vueFormulaire.textFieldVille.getText();
-        String telephone = vueFormulaire.textFieldTelephone.getText();
-        String mail = vueFormulaire.textFieldMail.getText();
-        String commentaire = vueFormulaire.textFieldCommentaires.getText();
-        String dateProspect = vueFormulaire.dateTextField.getText();
-        String interesse = "";
-        if (vueFormulaire.ouiRadioButton.isSelected()){
-            interesse = "Oui";
-        } else if (vueFormulaire.nonRadioButton.isSelected()){
-            interesse = "Non";
+        //test unicité de raison sociale
+        for (Prospect prospect : prospects){
+            if (formulaire.equals("Modification")){
+                if (prospect.getIdentifiant() != identifiant && prospect.getRaisonSociale().equals(raisonSociale)){
+                    LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Raison sociale déjà existante");
+                    throw (new ExceptionControleur("Erreur : Raison sociale déjà existante"));
+                }
+            } else {
+                if (prospect.getRaisonSociale().equals(raisonSociale)){
+                    LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Raison sociale déjà existante");
+                    throw (new ExceptionControleur("Erreur : Raison sociale déjà existante"));
+                }
+            }
         }
+        //test regex mail
         Pattern patternMail = Pattern.compile("^(.*)@(.*)[.](.*)$");
         if (!patternMail.matcher(mail).matches()){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]");

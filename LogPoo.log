@@ -121,3 +121,21 @@
 05/03/2024 14:25:02 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : date de prospection ne dois pas être vide
 05/03/2024 14:25:17 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createProspect / Message : Erreur Controleur : Mauvais format de date (doit être jj/MM/yyyy)
 05/03/2024 14:25:28 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createProspect / Message : Erreur Controleur : Mauvais format de date (doit être jj/MM/yyyy)
+06/03/2024 09:05:08 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:21:41 Niveau : SEVERE / Classe : dao.DAOClient / Methode : findByName / Message : Erreur DAO : Illegal operation on empty result set.
+06/03/2024 09:24:26 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:24:39 Niveau : SEVERE / Classe : dao.DAOClient / Methode : findByName / Message : Erreur DAO : Illegal operation on empty result set.
+06/03/2024 09:27:03 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createProspect / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:27:16 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createProspect / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:27:21 Niveau : SEVERE / Classe : dao.DAOProspect / Methode : findByName / Message : Erreur DAO : Illegal operation on empty result set.
+06/03/2024 09:27:35 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:28:31 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:33:07 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createProspect / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:33:30 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:34:46 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 09:37:07 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Raison sociale déjà existante
+06/03/2024 14:34:13 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+06/03/2024 14:34:19 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+06/03/2024 14:44:11 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+06/03/2024 15:45:51 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Data truncation: Data too long for column 'CODEPOSTAL' at row 1
+06/03/2024 15:45:55 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
