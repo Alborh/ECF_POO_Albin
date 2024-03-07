@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import static outils.Outils.regexMail;
+
 /**
  * Contrôleur de la vue Formulaire
  */
@@ -54,50 +56,77 @@ public class ControleurFormulaire {
     public static void onValider(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
                                  String telephone, String mail, String commentaire, String chiffreDAffaire, String nbEmploye,
                                  String dateProspect, String interesse, int id) throws Exception {
+        //Vérification des contraintes (champs devant êtres renseignés et taille maximale acceptée par la BDD)
         if (raisonSociale.isEmpty()){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : raison sociale ne dois pas être vide");
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : raison sociale ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : raison sociale ne dois pas être vide"));
+        } else if (raisonSociale.length() > 50) {
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : raison sociale ne dois pas faire plus de 50 caractères");
+            throw (new ExceptionControleur("Erreur : raison sociale ne dois pas faire plus de 50 caractères"));
         }
         if (numeroRue.isEmpty()){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : numéro rue ne dois pas être vide");
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : numéro rue ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : numéro rue ne dois pas être vide"));
+        } else if (numeroRue.length() > 10) {
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : numéro rue ne dois pas faire plus de 10 cacatères");
+            throw (new ExceptionControleur("Erreur : numéro rue ne dois pas faire plus de 10 cacatères"));
         }
         if(nomRue.isEmpty()){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : nom rue ne dois pas être vide");
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : nom rue ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : nom rue ne dois pas être vide"));
+        } else if (nomRue.length() > 30) {
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : nom rue ne dois pas faire plus de 30 caractères");
+            throw (new ExceptionControleur("Erreur : nom rue ne dois pas plus de 30 caractères"));
         }
         if (codePostal.isEmpty()){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : code postal ne dois pas être vide");
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : code postal ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : code postal ne dois pas être vide"));
+        } else if (codePostal.length() > 5) {
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : code postal ne dois pas faire plus de 5 caractères");
+            throw (new ExceptionControleur("Erreur : code postal ne dois pas faire plus de 5 caractères"));
         }
         if (ville.isEmpty()){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : ville ne dois pas être vide");
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : ville ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : ville ne dois pas être vide"));
+        } else if (ville.length() > 20) {
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : ville ne dois pas faire plus de 20 caractères");
+            throw (new ExceptionControleur("Erreur : ville ne dois pas faire plus de 20 caractères"));
         }
         if (telephone.isEmpty()){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : telephone ne dois pas être vide");
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : telephone ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : telephone ne dois pas être vide"));
+        } else if (telephone.length() > 15) {
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : telephone ne dois pas faire plus de 15 caractères");
+            throw (new ExceptionControleur("Erreur : telephone ne dois pas faire plus de 15 caractères"));
         }
         if (mail.isEmpty()){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : mail ne dois pas être vide");
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : mail ne dois pas être vide");
             throw (new ExceptionControleur("Erreur : mail ne dois pas être vide"));
+        } else if (mail.length() > 50) {
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : mail ne dois pas faire plus de 50 caractères");
+            throw (new ExceptionControleur("Erreur : mail ne dois pas plus de 50 caractères"));
+        }
+        if (commentaire.length()>100){
+            //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : commentaire ne dois pas faire plus de 100 caractères");
+            throw (new ExceptionControleur("Erreur : commentaire ne dois pas faire plus de 100 caractères"));
         }
         if (societe.equals("Client")){
             if (chiffreDAffaire.isEmpty()){
-                LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : chiffre d'affaire ne dois pas être vide");
+                //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : chiffre d'affaire ne dois pas être vide");
                 throw (new ExceptionControleur("Erreur : chiffre d'affaire ne dois pas être vide"));
             }
             if (nbEmploye.isEmpty()){
-                LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : nombre d'employés ne dois pas être vide");
+                //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : nombre d'employés ne dois pas être vide");
                 throw (new ExceptionControleur("Erreur : nombre d'employés ne dois pas être vide"));
             }
         }
         if (societe.equals("Prospect")){
             if (dateProspect.isEmpty()){
-                LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : date de prospection ne dois pas être vide");
+                //LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : date de prospection ne dois pas être vide");
                 throw (new ExceptionControleur("Erreur : date de prospection ne dois pas être vide"));
             }
         }
+        //Execution des actions en fonction du type de formulaire et de société
         switch (formulaire){
             case "Creation"->{
                 if (societe.equals("Client")){
@@ -134,7 +163,6 @@ public class ControleurFormulaire {
                 }
             }
         }
-        onRetourAcceuil();
     }
 
     /**
@@ -163,6 +191,7 @@ public class ControleurFormulaire {
     private static Client createClient(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
                                        String telephone, String mail, String commentaire, double chiffreDAffaire, int nbEmploye,
                                        int id) throws Exception {
+        //génération identifiant
         int identifiant = 0;
         ArrayList<Client> clients = DAOClient.findAll();
         if(formulaire.equals("Creation")) {
@@ -190,8 +219,7 @@ public class ControleurFormulaire {
             }
         }
         //test regex mail
-        Pattern patternMail = Pattern.compile("^(.*)@(.*)[.](.*)$");
-        if (!patternMail.matcher(mail).matches()){
+        if (!regexMail(mail)){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]");
             throw (new ExceptionControleur("Email invalide : doit être au format [adresse]@[mail].[domaine]"));
         }
@@ -218,6 +246,7 @@ public class ControleurFormulaire {
     private static Prospect createProspect(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
                                            String telephone, String mail, String commentaire, String dateProspect, String interesse,
                                            int id) throws Exception {
+        //géération identifiant
         int identifiant = 0;
         ArrayList<Prospect> prospects = DAOProspect.findAll();
         if (formulaire.equals("Creation")) {
@@ -245,8 +274,7 @@ public class ControleurFormulaire {
             }
         }
         //test regex mail
-        Pattern patternMail = Pattern.compile("^(.*)@(.*)[.](.*)$");
-        if (!patternMail.matcher(mail).matches()){
+        if (!regexMail(mail)){
             LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]");
             throw (new ExceptionControleur("Email invalide : doit être au format [adresse]@[mail].[domaine]"));
         }

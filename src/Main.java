@@ -6,7 +6,14 @@ import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
+/**
+ * Classe main, initialise le logger et appel l'acceuil
+ */
 public class Main {
+    /**
+     * Fonction main, initialise le logger et appel l'acceuil
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             FileHandler fh = new FileHandler("LogPoo.log",true);

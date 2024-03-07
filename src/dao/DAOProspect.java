@@ -1,7 +1,6 @@
 package dao;
 
 import exception.ExceptionDAO;
-import exception.ExceptionMetier;
 import log.LoggerPoo;
 import metier.Prospect;
 
@@ -10,11 +9,10 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 
 /**
- * Classe d'accès objet de
+ * Classe d'accès objet de Prospect
  */
 public class DAOProspect {
     /**
@@ -29,7 +27,7 @@ public class DAOProspect {
             String query = "SELECT prospect.IDPROSPECT as id, prospect.raisonsociale as raisoc, prospect.numerorue as numrue, " +
                     "prospect.nomrue as nomrue, prospect.codepostal as cdpost, prospect.ville as ville, prospect.telephone as tel, " +
                     "prospect.mail as mail, prospect.commentaire as comm, prospect.DATEPROSPECTION as datepros, prospect.INTERESSE as interesse" +
-                    " FROM prospect";
+                    " FROM prospect ORDER BY prospect.raisonsociale";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet res = stmt.executeQuery();
             while (res.next()){

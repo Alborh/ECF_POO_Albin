@@ -12,6 +12,9 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+/**
+ * Vue de l'acceuil
+ */
 public class VueAcceuil extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
@@ -31,6 +34,9 @@ public class VueAcceuil extends JDialog {
     private String typeFormulaire;
     private String typeSociete;
 
+    /**
+     * Création de la vue acceuil
+     */
     public VueAcceuil() {
         setContentPane(contentPane);
         setModal(true);
@@ -39,12 +45,20 @@ public class VueAcceuil extends JDialog {
         actionListeners();
 
     }
+
+    /**
+     * Initialisation des composants de la vue acceuil
+     */
     public void initComposants(){
         setSize(500,400);
         pannelChoixSociete.setVisible(false);
         typeSociete = "Client";
         initChoixSociete();
     }
+
+    /**
+     * fait en sorte que la combobox ait des choix qui correspondent aux choix entre Client ou Prospect
+     */
     public void initChoixSociete(){
         try {
             comboBoxChoixSociete.removeAllItems();
@@ -62,6 +76,9 @@ public class VueAcceuil extends JDialog {
         }
     }
 
+    /**
+     * Mise en place des actionListener des différents bouttons
+     */
     public void actionListeners(){
         clientRadioButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -126,9 +143,6 @@ public class VueAcceuil extends JDialog {
                 try {
                     dispose();
                     ControleurAcceuil.onCreation(typeSociete);
-                } catch (ExceptionMetier | ExceptionDAO ex) {
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
                 } catch (Exception ex){
                     LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
                     Outils.fenetrePopUp("Erreur",ex.getMessage());
@@ -162,9 +176,6 @@ public class VueAcceuil extends JDialog {
                             ControleurAcceuil.onSupprimer(typeSociete, typeFormulaire, comboBoxChoixSociete.getSelectedItem().toString());
                         }
                     }
-                } catch (ExceptionMetier | ExceptionDAO ex) {
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
                 } catch (Exception ex){
                     LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
                     Outils.fenetrePopUp("Erreur",ex.getMessage());

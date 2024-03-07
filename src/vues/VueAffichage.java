@@ -10,6 +10,9 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.logging.Level;
 
+/**
+ * Vue de l'affichage
+ */
 public class VueAffichage extends JDialog {
     private JPanel contentPane;
     private JButton buttonRetourAcceuil;
@@ -18,6 +21,10 @@ public class VueAffichage extends JDialog {
     private JPanel pannelPrincipal;
     private JLabel labTitre;
 
+    /**
+     * Création de la vue affichage
+     * @param typeSociete String Client ou Prospect
+     */
     public VueAffichage(String typeSociete) {
         setContentPane(contentPane);
         setModal(true);
@@ -26,6 +33,10 @@ public class VueAffichage extends JDialog {
         actionListeners();
     }
 
+    /**
+     * initialisation des composants de l'affichage
+     * @param typeSociete String Client ou Prospect
+     */
     public void initComposants(String typeSociete){
         try {
             setSize(1200, 400);
@@ -40,6 +51,10 @@ public class VueAffichage extends JDialog {
             System.out.println(ex.getMessage());
         }
     }
+
+    /**
+     * mise en place des actionListener des différents bouttons
+     */
     public void actionListeners(){
         buttonRetourAcceuil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

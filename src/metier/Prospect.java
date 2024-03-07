@@ -9,7 +9,7 @@ import java.util.logging.Level;
 
 
 /**
- *
+ * Type de société avec date de prospection et intéressé ou non
  */
 public class Prospect extends Societe {
     private LocalDate dateProspection;

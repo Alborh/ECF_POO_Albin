@@ -139,3 +139,29 @@
 06/03/2024 14:44:11 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
 06/03/2024 15:45:51 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Data truncation: Data too long for column 'CODEPOSTAL' at row 1
 06/03/2024 15:45:55 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 09:22:01 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]
+07/03/2024 09:22:04 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 09:23:36 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]
+07/03/2024 09:23:38 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 09:24:32 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]
+07/03/2024 09:24:35 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 09:26:18 Niveau : WARNING / Classe : metier.Societe / Methode : setTelephone / Message : Erreur Métier : Numéro de téléphone trop court : doit avoir au moins 10 chiffres
+07/03/2024 09:26:20 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 09:27:08 Niveau : WARNING / Classe : metier.Societe / Methode : setTelephone / Message : Erreur Métier : Numéro de téléphone trop court : doit avoir au moins 10 chiffres
+07/03/2024 09:27:20 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]
+07/03/2024 09:27:33 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 09:33:28 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : raison sociale ne dois pas être vide
+07/03/2024 09:33:40 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 09:53:52 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Data truncation: Data too long for column 'RAISONSOCIALE' at row 1
+07/03/2024 09:53:58 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 10:05:06 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : raison sociale ne dois pas faire plus de 50 caractères
+07/03/2024 10:05:12 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : numéro rue ne dois pas faire plus de 10 cacatères
+07/03/2024 10:05:18 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : nom rue ne dois pas faire plus de 30 caractères
+07/03/2024 10:05:23 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : code postal ne dois pas faire plus de 5 caractères
+07/03/2024 10:05:29 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : ville ne dois pas faire plus de 20 caractères
+07/03/2024 10:05:34 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : telephone ne dois pas faire plus de 15 caractères
+07/03/2024 10:05:41 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : mail ne dois pas faire plus de 50 caractères
+07/03/2024 10:05:57 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Data truncation: Data too long for column 'COMMENTAIRE' at row 1
+07/03/2024 10:06:17 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+07/03/2024 10:08:15 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : commentaire ne dois pas faire plus de 100 caractères
+07/03/2024 10:08:32 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée

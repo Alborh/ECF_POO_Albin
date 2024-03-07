@@ -1,7 +1,6 @@
 package dao;
 
 import exception.ExceptionDAO;
-import exception.ExceptionMetier;
 import log.LoggerPoo;
 import metier.Client;
 
@@ -26,7 +25,7 @@ public class DAOClient {
             String query = "SELECT client.idclient as id, client.raisonsociale as raisoc, client.numerorue as numrue, " +
                     "client.nomrue as nomrue, client.codepostal as cdpost, client.ville as ville, client.telephone as tel, " +
                     "client.mail as mail, client.commentaire as comm, client.chiffredaffaire as chaff, client.NBEMPLOYES as nbemp" +
-                    " FROM client";
+                    " FROM client ORDER BY client.raisonsociale";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet res = stmt.executeQuery();
             while (res.next()) {

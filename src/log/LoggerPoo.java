@@ -3,7 +3,7 @@ package log;
 import java.util.logging.Logger;
 
 /**
- *
+ * Logger (inistaialisé dans main)
  */
 public class LoggerPoo {
     /**

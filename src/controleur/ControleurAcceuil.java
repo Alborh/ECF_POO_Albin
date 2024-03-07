@@ -68,16 +68,12 @@ public class ControleurAcceuil {
             case "Client"->{
                 ArrayList<Client> clients = new ArrayList<>();
                 clients = DAOClient.findAll();
-                for (Client client : clients){
-                    societes.add(client);
-                }
+                societes.addAll(clients);
             }
             case "Prospect"->{
                 ArrayList<Prospect> prospects = new ArrayList<>();
                 prospects = DAOProspect.findAll();
-                for (Prospect prospect : prospects){
-                    societes.add(prospect);
-                }
+                societes.addAll(prospects);
             }
         }
         return societes;

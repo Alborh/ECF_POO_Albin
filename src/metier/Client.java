@@ -6,7 +6,7 @@ import log.LoggerPoo;
 import java.util.logging.Level;
 
 /**
- *
+ * Type de société Client avec chiffre d'affaire et nombre d'employés
  */
 public class Client extends Societe{
     private double chiffreDAffaire;

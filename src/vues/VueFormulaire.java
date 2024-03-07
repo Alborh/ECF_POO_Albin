@@ -16,6 +16,9 @@ import java.awt.event.*;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 
+/**
+ * Vue du formulaire
+ */
 public class VueFormulaire extends JDialog {
     private JPanel contentPane;
     private JButton buttonValider;
@@ -42,6 +45,12 @@ public class VueFormulaire extends JDialog {
     private JLabel labInteresse;
     private int id;
 
+    /**
+     * création de la vue du formulaire
+     * @param typeFormulaire String Creation, Modification ou Suppression
+     * @param typeSociete String Client ou Prospect
+     * @param raisonSociale String raison sociale de la société
+     */
     public VueFormulaire(String typeFormulaire, String typeSociete, String raisonSociale) {
         try {
             setContentPane(contentPane);
@@ -57,8 +66,15 @@ public class VueFormulaire extends JDialog {
             System.out.println(e.getMessage());
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+e.getMessage());
         }
-
     }
+
+    /**
+     * Initialiste les composants du formulaire
+     * @param typeFormulaire String Creation, Modification ou Suppression
+     * @param typeSociete String Client ou Prospect
+     * @param raisonSociale String raison sociale de la société
+     * @throws Exception remonte les exceptions
+     */
     public void initComposants(String typeFormulaire, String typeSociete, String raisonSociale) throws Exception {
         setSize(400, 500);
         //options client
@@ -75,6 +91,7 @@ public class VueFormulaire extends JDialog {
         ouiRadioButton.setSelected(true);
         ouiRadioButton.setEnabled(false);
         labTitre.setText(typeFormulaire + " de " + typeSociete);
+        //rend les champs visibles en fonction  du type de société
         switch (typeSociete) {
             case "Client" -> {
                 labChiffreDAffaire.setVisible(true);
@@ -90,6 +107,7 @@ public class VueFormulaire extends JDialog {
                 nonRadioButton.setVisible(true);
             }
         }
+        //rempli les champs ou non en fonction du type de formulaire
         if (!typeFormulaire.equals("Creation")) {
             switch (typeSociete) {
                 case "Client" -> {
@@ -125,6 +143,7 @@ public class VueFormulaire extends JDialog {
                 }
             }
         }
+        //rend les champs non-éditable pour les formulaires de suppression
         if (typeFormulaire.equals("Suppression")) {
             textFieldRaisonSociale.setEditable(false);
             textFieldNumeroRue.setEditable(false);
@@ -140,6 +159,7 @@ public class VueFormulaire extends JDialog {
             ouiRadioButton.setEnabled(false);
             nonRadioButton.setEnabled(false);
         }
+        //enregistre l'identifiant de la société pour les formulaires de modification
         if (typeFormulaire.equals("Modification")){
             if (typeSociete.equals("Client")){
                 this.id = DAOClient.findByName(raisonSociale).getIdentifiant();
@@ -148,6 +168,10 @@ public class VueFormulaire extends JDialog {
             }
         }
     }
+
+    /**
+     * Mise en place des actionListener des différents bouttons
+     */
     public void actionListeners(){
         retourAcceuilButton.addActionListener(new ActionListener() {
             @Override
@@ -160,7 +184,6 @@ public class VueFormulaire extends JDialog {
         buttonValider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    dispose();
                     String interesse = "";
                     if (ouiRadioButton.isSelected()){
                         interesse = "Oui";
@@ -180,6 +203,8 @@ public class VueFormulaire extends JDialog {
                             dateTextField.getText(),
                             interesse,
                             id);
+                    dispose();
+                    ControleurFormulaire.onRetourAcceuil();
                 } catch (ExceptionMetier | ExceptionControleur | ExceptionDAO ex) {
                     Outils.fenetrePopUp("Erreur",ex.getMessage());
                     System.out.println(ex.getMessage());
