@@ -46,7 +46,7 @@ public class VueFormulaire extends JDialog {
     private int id;
 
     /**
-     * création de la vue du formulaire
+     * Création de la vue du formulaire
      * @param typeFormulaire String Creation, Modification ou Suppression
      * @param typeSociete String Client ou Prospect
      * @param raisonSociale String raison sociale de la société
@@ -69,7 +69,7 @@ public class VueFormulaire extends JDialog {
     }
 
     /**
-     * Initialiste les composants du formulaire
+     * Initialise les composants du formulaire
      * @param typeFormulaire String Creation, Modification ou Suppression
      * @param typeSociete String Client ou Prospect
      * @param raisonSociale String raison sociale de la société

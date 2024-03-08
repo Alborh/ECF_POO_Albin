@@ -51,7 +51,7 @@ public class ControleurFormulaire {
      * @param dateProspect String
      * @param interesse String
      * @param id int
-     * @throws Exception remonte les exceptions
+     * @throws Exception remonte les exceptions et erreurs de saisie
      */
     public static void onValider(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
                                  String telephone, String mail, String commentaire, String chiffreDAffaire, String nbEmploye,
@@ -186,7 +186,7 @@ public class ControleurFormulaire {
      * @param nbEmploye int
      * @param id int
      * @return le client donné en entrée dans le formulaire
-     * @throws Exception remonte les exceptions
+     * @throws Exception remonte les exceptions et problème de saisie et de redondance de raison sociale
      */
     private static Client createClient(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
                                        String telephone, String mail, String commentaire, double chiffreDAffaire, int nbEmploye,
@@ -241,7 +241,7 @@ public class ControleurFormulaire {
      * @param interesse String
      * @param id int
      * @return le prospect donnée en entrée par le formulaire
-     * @throws Exception remonte les exceptions
+     * @throws Exception remonte les exceptions et problème de saisie et de redondance de raison sociale
      */
     private static Prospect createProspect(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
                                            String telephone, String mail, String commentaire, String dateProspect, String interesse,

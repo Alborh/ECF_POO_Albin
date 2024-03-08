@@ -12,15 +12,14 @@ import java.util.Properties;
 import java.util.logging.Level;
 
 /**
- * Singleton de gestion de la connextion à la base de données
+ * Singleton de gestion de la connexion à la base de données
  */
 public class ConnexionManager {
     private static Connection connexion;
 
     /**
      * Création de l'instance de connexion
-     * @throws IOException
-     * @throws SQLException
+     * @throws Exception remonte les exceptions
      */
     private ConnexionManager() throws Exception {
         Properties dataProperties = new Properties();
@@ -32,11 +31,11 @@ public class ConnexionManager {
                 dataProperties.getProperty("login"),
                 dataProperties.getProperty("password"));
     }
+
     /**
-     * renvoie la connexion à la base de données
+     * Renvoie la connexion à la base de données
      * @return Connection
-     * @throws SQLException
-     * @throws IOException
+     * @throws Exception remponte les exceptions
      */
     public static Connection getConnexion() throws Exception {
         if (connexion==null){

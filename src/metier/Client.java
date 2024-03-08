@@ -6,16 +6,16 @@ import log.LoggerPoo;
 import java.util.logging.Level;
 
 /**
- * Type de société Client avec chiffre d'affaire et nombre d'employés
+ * Type de société Client avec chiffre d'affaires et nombre d'employés
  */
 public class Client extends Societe{
     private double chiffreDAffaire;
     private int nbEmploye;
 
     /**
-     * setter du chiffre d'affaire
-     * @param chiffreDAffaire double >=200
-     * @throws Exception si <200
+     * Setter du chiffre d'affaires
+     * @param chiffreDAffaire double supérieur ou égal à 200
+     * @throws Exception si inférieur à 200
      */
     public void setChiffreDAffaire(double chiffreDAffaire) throws Exception {
         if (chiffreDAffaire<200){
@@ -26,17 +26,17 @@ public class Client extends Societe{
     }
 
     /**
-     * getter du chiffre d'affaire
-     * @return double chiffre d'affaire
+     * Getter du chiffre d'affaires
+     * @return double chiffre d'affaires
      */
     public double getChiffreDAffaire() {
         return chiffreDAffaire;
     }
 
     /**
-     * setter du nombre d'employés
-     * @param nbEmploye int >0
-     * @throws Exception si =<0
+     * Setter du nombre d'employés
+     * @param nbEmploye int supérieur à 0
+     * @throws Exception si inférieur ou égal à 0
      */
     public void setNbEmploye(int nbEmploye) throws Exception {
         if (nbEmploye<1){
@@ -47,7 +47,7 @@ public class Client extends Societe{
     }
 
     /**
-     * getter du nombre d'employés
+     * Getter du nombre d'employés
      * @return int nombre d'employés
      */
     public int getNbEmploye() {

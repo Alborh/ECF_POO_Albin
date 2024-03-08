@@ -24,7 +24,7 @@ public class ControleurAcceuil {
     /**
      * Appel la vue Afficher
      */
-    public static void onAfficher(String typeSociete) throws Exception {
+    public static void onAfficher(String typeSociete) {
         ControlleurAffichage.init(typeSociete);
     }
 

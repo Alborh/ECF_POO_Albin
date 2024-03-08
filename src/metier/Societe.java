@@ -6,7 +6,7 @@ import log.LoggerPoo;
 import java.util.logging.Level;
 
 /**
- * classe abstraite servant de base pour client et prospect
+ * Classe abstraite servant de base pour client et prospect
  */
 public abstract class Societe {
     private int identifiant;
@@ -36,7 +36,7 @@ public abstract class Societe {
     }
 
     /**
-     * setter de la raison sociale
+     * Setter de la raison sociale
      * @param raisonSociale String
      */
     public void setRaisonSociale(String raisonSociale){
@@ -44,7 +44,7 @@ public abstract class Societe {
     }
 
     /**
-     * getter de la raison sociale
+     * Getter de la raison sociale
      * @return String raison sociale
      */
     public String getRaisonSociale(){
@@ -52,7 +52,7 @@ public abstract class Societe {
     }
 
     /**
-     * setter du numéro de rue
+     * Setter du numéro de rue
      * @param numeroRue String
      */
     public void setNumeroRue(String numeroRue){
@@ -60,7 +60,7 @@ public abstract class Societe {
     }
 
     /**
-     * getter du numéro de rue
+     * Getter du numéro de rue
      * @return String numéro de rue
      */
     public String getNumeroRue(){
@@ -68,7 +68,7 @@ public abstract class Societe {
     }
 
     /**
-     * setter du nom de rue
+     * Setter du nom de rue
      * @param nomRue String
      */
     public void setNomRue(String nomRue) {
@@ -116,7 +116,7 @@ public abstract class Societe {
     }
 
     /**
-     * setter du numéro de téléphone
+     * Setter du numéro de téléphone
      * @param telephone String
      * @throws Exception si moins de 10 caractères
      */
@@ -129,7 +129,7 @@ public abstract class Societe {
     }
 
     /**
-     * getter du numéro de téléphone
+     * Getter du numéro de téléphone
      * @return String numéro de téléphone
      */
     public String getTelephone() {
@@ -137,7 +137,7 @@ public abstract class Societe {
     }
 
     /**
-     * setter de l'addresse mail
+     * Setter de l'addresse mail
      * @param mail String
      */
     public void setMail(String mail) {
@@ -145,7 +145,7 @@ public abstract class Societe {
     }
 
     /**
-     * getter de l'adresse mail
+     * Getter de l'adresse mail
      * @return String adresse mail
      */
     public String getMail() {
@@ -153,7 +153,7 @@ public abstract class Societe {
     }
 
     /**
-     * setter des commentaires
+     * Setter des commentaires
      * @param commentaire String
      */
     public void setCommentaire(String commentaire) {
