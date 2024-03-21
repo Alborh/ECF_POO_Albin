@@ -6,6 +6,7 @@ import metier.Client;
 import metier.Prospect;
 import metier.Societe;
 import vues.VueAcceuil;
+import outils.*;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class ControleurAcceuil {
     /**
      * Appel la vue Afficher
      */
-    public static void onAfficher(String typeSociete) {
+    public static void onAfficher(typeSociete typeSociete) {
         ControlleurAffichage.init(typeSociete);
     }
 
@@ -32,8 +33,8 @@ public class ControleurAcceuil {
      * Appel une vue formulaire de type Création
      * @param typeSociete String Client ou Prospect
      */
-    public static void onCreation(String typeSociete) {
-        ControleurFormulaire.init("Creation", typeSociete,"");
+    public static void onCreation(typeSociete typeSociete) {
+        ControleurFormulaire.init(typeFormulaire.CREATION, typeSociete,"");
     }
 
     /**
@@ -42,7 +43,7 @@ public class ControleurAcceuil {
      * @param typeFormulaire String Modification
      * @param raisonSociale String raison sociale de la société sélectionnée
      */
-    public static void onModifier(String typeSociete, String typeFormulaire, String raisonSociale) {
+    public static void onModifier(typeSociete typeSociete, typeFormulaire typeFormulaire, String raisonSociale) {
         ControleurFormulaire.init(typeFormulaire, typeSociete, raisonSociale);
     }
 
@@ -52,7 +53,7 @@ public class ControleurAcceuil {
      * @param typeFormulaire String Suppression
      * @param raisonSociale String raison sociale de la société sélectionnée
      */
-    public static void onSupprimer(String typeSociete, String typeFormulaire, String raisonSociale) {
+    public static void onSupprimer(typeSociete typeSociete, typeFormulaire typeFormulaire, String raisonSociale) {
         ControleurFormulaire.init(typeFormulaire, typeSociete, raisonSociale);
     }
 
@@ -62,15 +63,15 @@ public class ControleurAcceuil {
      * @return Arraylist de Societe
      * @throws Exception remonte les exceptions
      */
-    public static ArrayList<Societe> choixSocieteSetChoix(String typeSociete) throws Exception {
+    public static ArrayList<Societe> choixSocieteSetChoix(typeSociete typeSociete) throws Exception {
         ArrayList<Societe> societes = new ArrayList<>();
         switch (typeSociete){
-            case "Client"->{
+            case CLIENT->{
                 ArrayList<Client> clients = new ArrayList<>();
                 clients = DAOClient.findAll();
                 societes.addAll(clients);
             }
-            case "Prospect"->{
+            case PROSPECT->{
                 ArrayList<Prospect> prospects = new ArrayList<>();
                 prospects = DAOProspect.findAll();
                 societes.addAll(prospects);

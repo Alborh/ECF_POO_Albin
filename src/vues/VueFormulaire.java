@@ -9,7 +9,7 @@ import exception.ExceptionMetier;
 import log.LoggerPoo;
 import metier.Client;
 import metier.Prospect;
-import outils.Outils;
+import outils.*;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -51,7 +51,7 @@ public class VueFormulaire extends JDialog {
      * @param typeSociete String Client ou Prospect
      * @param raisonSociale String raison sociale de la société
      */
-    public VueFormulaire(String typeFormulaire, String typeSociete, String raisonSociale) {
+    public VueFormulaire(typeFormulaire typeFormulaire, typeSociete typeSociete, String raisonSociale) {
         try {
             setContentPane(contentPane);
             setModal(true);
@@ -81,7 +81,7 @@ public class VueFormulaire extends JDialog {
      * @param raisonSociale String raison sociale de la société
      * @throws Exception remonte les exceptions
      */
-    public void initComposants(String typeFormulaire, String typeSociete, String raisonSociale) throws Exception {
+    public void initComposants(typeFormulaire typeFormulaire, typeSociete typeSociete, String raisonSociale) throws Exception {
         setSize(400, 500);
         //options client
         labChiffreDAffaire.setVisible(false);
@@ -96,16 +96,16 @@ public class VueFormulaire extends JDialog {
         nonRadioButton.setVisible(false);
         ouiRadioButton.setSelected(true);
         ouiRadioButton.setEnabled(false);
-        labTitre.setText(typeFormulaire + " de " + typeSociete);
-        //rend les champs visibles en fonction  du type de société
+        labTitre.setText(typeFormulaire.getNom() + " de " + typeSociete.getNom());
+        //rend les champs visibles en fonction du type de société
         switch (typeSociete) {
-            case "Client" -> {
+            case CLIENT -> {
                 labChiffreDAffaire.setVisible(true);
                 textFieldChiffreDAffaire.setVisible(true);
                 labEmploye.setVisible(true);
                 textFieldNombreEmploye.setVisible(true);
             }
-            case "Prospect" -> {
+            case PROSPECT -> {
                 labDate.setVisible(true);
                 dateTextField.setVisible(true);
                 labInteresse.setVisible(true);
@@ -114,9 +114,9 @@ public class VueFormulaire extends JDialog {
             }
         }
         //rempli les champs ou non en fonction du type de formulaire
-        if (!typeFormulaire.equals("Creation")) {
+        if (typeFormulaire != outils.typeFormulaire.CREATION) {
             switch (typeSociete) {
-                case "Client" -> {
+                case CLIENT -> {
                     Client client = DAOClient.findByName(raisonSociale);
                     textFieldRaisonSociale.setText(client.getRaisonSociale());
                     textFieldNumeroRue.setText(client.getNumeroRue());
@@ -129,7 +129,7 @@ public class VueFormulaire extends JDialog {
                     textFieldChiffreDAffaire.setText(String.valueOf(client.getChiffreDAffaire()));
                     textFieldNombreEmploye.setText(String.valueOf(client.getNbEmploye()));
                 }
-                case "Prospect" -> {
+                case PROSPECT -> {
                     Prospect prospect = DAOProspect.findByName(raisonSociale);
                     textFieldRaisonSociale.setText(prospect.getRaisonSociale());
                     textFieldNumeroRue.setText(prospect.getNumeroRue());
@@ -150,7 +150,7 @@ public class VueFormulaire extends JDialog {
             }
         }
         //rend les champs non-éditable pour les formulaires de suppression
-        if (typeFormulaire.equals("Suppression")) {
+        if (typeFormulaire == outils.typeFormulaire.SUPPRESSION) {
             textFieldRaisonSociale.setEditable(false);
             textFieldNumeroRue.setEditable(false);
             textFieldNomRue.setEditable(false);
@@ -166,8 +166,8 @@ public class VueFormulaire extends JDialog {
             nonRadioButton.setEnabled(false);
         }
         //enregistre l'identifiant de la société pour les formulaires de modification
-        if (typeFormulaire.equals("Modification")){
-            if (typeSociete.equals("Client")){
+        if (typeFormulaire == outils.typeFormulaire.MODIFICATION){
+            if (typeSociete == outils.typeSociete.CLIENT){
                 this.id = DAOClient.findByName(raisonSociale).getIdentifiant();
             } else {
                 this.id = DAOProspect.findByName(raisonSociale).getIdentifiant();

@@ -4,7 +4,7 @@ import controleur.ControlleurAffichage;
 import exception.ExceptionDAO;
 import exception.ExceptionMetier;
 import log.LoggerPoo;
-import outils.Outils;
+import outils.*;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -25,7 +25,7 @@ public class VueAffichage extends JDialog {
      * Création de la vue affichage
      * @param typeSociete String Client ou Prospect
      */
-    public VueAffichage(String typeSociete) {
+    public VueAffichage(typeSociete typeSociete) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonRetourAcceuil);
@@ -37,10 +37,10 @@ public class VueAffichage extends JDialog {
      * Initialisation des composants de l'affichage
      * @param typeSociete String Client ou Prospect
      */
-    public void initComposants(String typeSociete){
+    public void initComposants(typeSociete typeSociete){
         try {
             setSize(1200, 400);
-            labTitre.setText("Affichage " + typeSociete);
+            labTitre.setText("Affichage " + typeSociete.getNom());
             String[] titre;
             if (typeSociete.equals("Client")){
                 titre = new String[]{"Raison sociale", "Numéro rue", "Nom rue", "Code postal", "Ville", "Téléphone",

@@ -5,7 +5,7 @@ import exception.ExceptionDAO;
 import exception.ExceptionMetier;
 import log.LoggerPoo;
 import metier.Societe;
-import outils.Outils;
+import outils.*;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -31,8 +31,8 @@ public class VueAcceuil extends JDialog {
     private JComboBox comboBoxChoixSociete;
     private JButton validerButton;
 
-    private String typeFormulaire;
-    private String typeSociete;
+    private typeFormulaire typeFormulaire;
+    private typeSociete typeSociete;
 
     /**
      * Création de la vue acceuil
@@ -51,7 +51,7 @@ public class VueAcceuil extends JDialog {
     public void initComposants(){
         setSize(500,400);
         pannelChoixSociete.setVisible(false);
-        typeSociete = "Client";
+        typeSociete = outils.typeSociete.CLIENT;
         initChoixSociete();
     }
 
@@ -93,7 +93,7 @@ public class VueAcceuil extends JDialog {
                 prospectRadioButton.setEnabled(true);
                 prospectRadioButton.setSelected(false);
                 clientRadioButton.setEnabled(false);
-                typeSociete = "Client";
+                typeSociete = outils.typeSociete.CLIENT;
                 initChoixSociete();
             }
         });
@@ -103,7 +103,7 @@ public class VueAcceuil extends JDialog {
                 clientRadioButton.setEnabled(true);
                 clientRadioButton.setSelected(false);
                 prospectRadioButton.setEnabled(false);
-                typeSociete = "Prospect";
+                typeSociete = outils.typeSociete.PROSPECT;
                 initChoixSociete();
             }
         });
@@ -144,7 +144,7 @@ public class VueAcceuil extends JDialog {
 
         creationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                typeFormulaire = "Creation";
+                typeFormulaire = outils.typeFormulaire.CREATION;
                 try {
                     dispose();
                     ControleurAcceuil.onCreation(typeSociete);
@@ -158,14 +158,14 @@ public class VueAcceuil extends JDialog {
 
         modifierButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                typeFormulaire = "Modification";
+                typeFormulaire = outils.typeFormulaire.MODIFICATION;
                 pannelChoixSociete.setVisible(true);
             }
         });
 
         supprimerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                typeFormulaire = "Suppression";
+                typeFormulaire = outils.typeFormulaire.SUPPRESSION;
                 pannelChoixSociete.setVisible(true);
             }
         });
@@ -178,10 +178,10 @@ public class VueAcceuil extends JDialog {
                     }
                     dispose();
                     switch (typeFormulaire){
-                        case "Modification" -> {
+                        case MODIFICATION -> {
                             ControleurAcceuil.onModifier(typeSociete, typeFormulaire, comboBoxChoixSociete.getSelectedItem().toString());
                         }
-                        case "Suppression" -> {
+                        case SUPPRESSION -> {
                             ControleurAcceuil.onSupprimer(typeSociete, typeFormulaire, comboBoxChoixSociete.getSelectedItem().toString());
                         }
                     }

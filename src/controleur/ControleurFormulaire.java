@@ -3,25 +3,22 @@ package controleur;
 import dao.DAOClient;
 import dao.DAOProspect;
 import exception.ExceptionControleur;
-import log.LoggerPoo;
 import metier.Client;
 import metier.Prospect;
 import vues.VueFormulaire;
+import outils.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-import static outils.Outils.regexMail;
 
 /**
  * Contrôleur de la vue Formulaire
  */
 public class ControleurFormulaire {
-    private static String formulaire;
-    private static String societe;
+    private static typeFormulaire formulaire;
+    private static typeSociete societe;
 
     /**
      * Appelle la vue formulaire
@@ -29,7 +26,7 @@ public class ControleurFormulaire {
      * @param typeSociete String Client ou Prospect
      * @param raisonSociale String raison sociale de la société selectionnée (sauf pour Création)
      */
-    public static void init(String typeFormulaire, String typeSociete, String raisonSociale) {
+    public static void init(typeFormulaire typeFormulaire, typeSociete typeSociete, String raisonSociale) {
         formulaire = typeFormulaire;
         societe = typeSociete;
         VueFormulaire vueFormulaire = new VueFormulaire(formulaire,societe,raisonSociale);
@@ -57,7 +54,7 @@ public class ControleurFormulaire {
                                  String telephone, String mail, String commentaire, String chiffreDAffaire, String nbEmploye,
                                  String dateProspect, String interesse, int id) throws Exception {
         //Vérification des champs devant êtres renseignés ne pouvant pas être testé si null une fois convertit (double et int)
-        if (societe.equals("Client")){
+        if (societe == typeSociete.CLIENT){
             if (chiffreDAffaire.isEmpty()){
                 throw (new ExceptionControleur("Erreur : chiffre d'affaire ne dois pas être vide"));
             }
@@ -66,7 +63,7 @@ public class ControleurFormulaire {
             }
         }
         //vérifie que la date est au bon format avant de parse
-        if (societe.equals("Prospect")){
+        if (societe == typeSociete.PROSPECT){
             // /!\ ne prend pas en compte la taille des mois
             Pattern patternDate = Pattern.compile("^((0[1-9])|([12][0-9])|(3[01]))/((0[0-9])|(1[012]))/([0-9][0-9][0-9][0-9])$");
             if(!patternDate.matcher(dateProspect).matches()){
@@ -74,44 +71,50 @@ public class ControleurFormulaire {
             }
         }
         LocalDate date = null;
-        if (societe.equals("Prospect")){
+        if (societe == typeSociete.PROSPECT){
             //Conversion de la date de String à LocalDate
             date = LocalDate.parse(dateProspect,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         }
         //Execution des actions en fonction du type de formulaire et de société
         switch (formulaire){
-            case "Creation"->{
-                if (societe.equals("Client")){
-                    Client client = new Client(id,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
-                            Double.parseDouble(chiffreDAffaire),Integer.parseInt(nbEmploye));
-                    DAOClient.create(client);
-                }
-                else {
-                    Prospect prospect = new Prospect(id, raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
-                            date, interesse);
-                    DAOProspect.create(prospect);
-                }
-            }
-            case "Modification"->{
-                if(societe.equals("Client")){
-                    Client client = new Client(id,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
-                            Double.parseDouble(chiffreDAffaire),Integer.parseInt(nbEmploye));
-                    DAOClient.update(client);
-                }
-                else {
-                    Prospect prospect = new Prospect(id, raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
-                            date, interesse);
-                    DAOProspect.update(prospect);
+            case CREATION->{
+                switch (societe){
+                    case CLIENT -> {
+                        Client client = new Client(id,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                                Double.parseDouble(chiffreDAffaire),Integer.parseInt(nbEmploye));
+                        DAOClient.create(client);
+                    }
+                    case PROSPECT -> {
+                        Prospect prospect = new Prospect(id, raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                                date, interesse);
+                        DAOProspect.create(prospect);
+                    }
                 }
             }
-            case "Suppression"->{
-                if(societe.equals("Client")){
-                    Client client = DAOClient.findByName(raisonSociale);
-                    DAOClient.delete(client);
+            case MODIFICATION->{
+                switch (societe){
+                    case CLIENT -> {
+                        Client client = new Client(id,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                                Double.parseDouble(chiffreDAffaire),Integer.parseInt(nbEmploye));
+                        DAOClient.update(client);
+                    }
+                    case PROSPECT -> {
+                        Prospect prospect = new Prospect(id, raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail, commentaire,
+                                date, interesse);
+                        DAOProspect.update(prospect);
+                    }
                 }
-                else {
-                    Prospect prospect = DAOProspect.findByName(raisonSociale);
-                    DAOProspect.delete(prospect);
+            }
+            case SUPPRESSION->{
+                switch (societe){
+                    case CLIENT -> {
+                        Client client = DAOClient.findByName(raisonSociale);
+                        DAOClient.delete(client);
+                    }
+                    case PROSPECT -> {
+                        Prospect prospect = DAOProspect.findByName(raisonSociale);
+                        DAOProspect.delete(prospect);
+                    }
                 }
             }
         }

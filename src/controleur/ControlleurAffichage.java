@@ -5,6 +5,7 @@ import dao.DAOProspect;
 import metier.Client;
 import metier.Prospect;
 import vues.VueAffichage;
+import outils.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ControlleurAffichage {
      * Appelle la vue Affichage
      * @param typeSociete String Client ou Prospect
      */
-    public static void init(String typeSociete) {
+    public static void init(typeSociete typeSociete) {
         VueAffichage vueAffichage = new VueAffichage(typeSociete);
         vueAffichage.setVisible(true);
     }
@@ -29,9 +30,9 @@ public class ControlleurAffichage {
      * @return JTable des sociétés du type sélectionné
      * @throws Exception remonte les exceptions
      */
-    public static Object[][] tableAffichage(String typeSociete) throws Exception {
+    public static Object[][] tableAffichage(typeSociete typeSociete) throws Exception {
         switch (typeSociete){
-            case "Client"->{
+            case CLIENT->{
                 ArrayList<Client> clients = DAOClient.findAll();
                 String[] titre = {"Raison sociale","Numéro rue","Nom rue","Code postal","Ville","Téléphone","Mail","Commentaire","Chiffre d'affaire","Nombre d'employés"};
                 Object[][] data = new Object[clients.size()][10];
@@ -49,7 +50,7 @@ public class ControlleurAffichage {
                 }
                 return data;
             }
-            case "Prospect"->{
+            case PROSPECT->{
                 ArrayList<Prospect> prospects = DAOProspect.findAll();
                 String[] titre = {"Raison sociale","Numéro rue","Nom rue","Code postal","Ville","Téléphone","Mail","Commentaire","Date de Prospection","Prospect interressé"};
                 Object[][] data = new Object[prospects.size()][10];
