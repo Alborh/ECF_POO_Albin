@@ -1,11 +1,10 @@
 package metier;
 
 import exception.ExceptionMetier;
-import log.LoggerPoo;
 
 import java.time.LocalDate;
 
-import java.util.logging.Level;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -19,7 +18,10 @@ public class Prospect extends Societe {
      * setter date de prospection
      * @param dateProspection LocalDate
      */
-    public void setDateProspection(LocalDate dateProspection) {
+    public void setDateProspection(LocalDate dateProspection) throws Exception {
+        if(dateProspection==null){
+            throw (new ExceptionMetier("Erreur : la valeur Date prospection ne dois pas être vide"));
+        }
         this.dateProspection = dateProspection;
     }
 
@@ -37,8 +39,10 @@ public class Prospect extends Societe {
      * @throws Exception si n'est pas "Oui" ou "Non"
      */
     public void setInteresse(String interesse) throws Exception {
+        if (interesse.isEmpty()){
+            throw (new ExceptionMetier("Erreur : la valeur interesse ne dois pas être nulle"));
+        }
         if (!(interesse.equals("Oui") || interesse.equals("Non"))) {
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Métier : la valeur interesse doit être Oui ou Non");
             throw (new ExceptionMetier("la valeur interesse doit être Oui ou Non"));
         }
         this.interesse = interesse;
@@ -71,5 +75,14 @@ public class Prospect extends Societe {
         super(identifiant, raisonSociale, numeroRue, nomRue, codePostal, ville, telephone, mail, commentaire);
         setDateProspection(dateProspection);
         setInteresse(interesse);
+    }
+
+    /**
+     *
+     * @return String décrivant le prospect
+     */
+    @Override
+    public String toString() {
+        return super.toString()+getDateProspection().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" "+getInteresse();
     }
 }

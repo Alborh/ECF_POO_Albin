@@ -4,6 +4,7 @@ import log.LoggerPoo;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,14 +23,20 @@ public class ConnexionManager {
      * @throws Exception remonte les exceptions
      */
     private ConnexionManager() throws Exception {
-        Properties dataProperties = new Properties();
-        File fichier = new File("database.properties");
-        FileInputStream input = new FileInputStream(fichier);
-        dataProperties.load(input);
-        this.connexion = DriverManager.getConnection(
+        try {
+            Properties dataProperties = new Properties();
+            File fichier = new File("database.properties");
+            FileInputStream input = null;
+            input = new FileInputStream(fichier);
+            dataProperties.load(input);
+            this.connexion = DriverManager.getConnection(
                 dataProperties.getProperty("url"),
                 dataProperties.getProperty("login"),
                 dataProperties.getProperty("password"));
+        } catch (SQLException | IOException e) {
+            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur connexion : "+e.getMessage());
+            throw (new Exception("Erreur de connexion"));
+        }
     }
 
     /**
@@ -54,7 +61,7 @@ public class ConnexionManager {
                     try {
                         LoggerPoo.LOGGER.log(Level.INFO,"Database fermée");
                         connexion.close();
-                        System.out.println("Connection fermée");
+                        //System.out.println("Connection fermée");
                     } catch (SQLException e){
                         LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+e.getMessage());
                     }

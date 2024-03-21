@@ -1,4 +1,4 @@
-package outils;
 /**
  * Package des classes utilitaires
  */
+package outils;

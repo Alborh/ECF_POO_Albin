@@ -1,17 +1,21 @@
 package test;
 
 import exception.ExceptionMetier;
+import log.LoggerPoo;
 import metier.Client;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSociete {
-
     @Test
-    void testGetIdentifiant() throws Exception {
-        Client societe = new Client(1,
-                "test",
+    void testRaisonSocialeVide() {
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+                "",
                 "42",
                 "Rue test",
                 "42042",
@@ -20,13 +24,13 @@ public class TestSociete {
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        assertEquals(societe.getIdentifiant(),1);
+                42));
+        assertEquals("Erreur : raison sociale ne dois pas être vide",exception.getMessage());
     }
     @Test
-    void testSetIdentifiant() throws Exception {
-        Client societe = new Client(1,
-                "test",
+    void testRaisonSocialeTropGrand(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+                "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "42",
                 "Rue test",
                 "42042",
@@ -35,15 +39,14 @@ public class TestSociete {
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        societe.setIdentifiant(2);
-        assertEquals(societe.getIdentifiant(),2);
+                42));
+        assertEquals("Erreur : raison sociale ne dois pas faire plus de 50 caractères",exception.getMessage());
     }
     @Test
-    void testGetRaisonSociale()throws Exception {
-        Client societe = new Client(1,
+    void testNumeroRueVide(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
-                "42",
+                "",
                 "Rue test",
                 "42042",
                 "Testville",
@@ -51,15 +54,14 @@ public class TestSociete {
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        assertEquals(societe.getRaisonSociale(),"test");
+                42));
+        assertEquals("Erreur : numéro rue ne dois pas être vide",exception.getMessage());
     }
-
     @Test
-    void testGetNumeroRue()throws Exception {
-        Client societe = new Client(1,
+    void testNumeroRueTropGrand(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
-                "42",
+                "10000000000000",
                 "Rue test",
                 "42042",
                 "Testville",
@@ -67,136 +69,131 @@ public class TestSociete {
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        assertEquals(societe.getNumeroRue(),"42");
+                42));
+        assertEquals("Erreur : numéro rue ne dois pas faire plus de 10 cacatères",exception.getMessage());
     }
     @Test
-    void testSetNumeroRue() throws Exception {
-        Client societe = new Client(1,
+    void testNomRueVide(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
-                "Rue test",
+                "",
                 "42042",
                 "Testville",
                 "4242424242",
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        societe.setNumeroRue("21");
-        assertEquals(societe.getNumeroRue(),"21");
+                42));
+        assertEquals("Erreur : nom rue ne dois pas être vide",exception.getMessage());
     }
     @Test
-    void testGetNomRue()throws Exception {
-        Client societe = new Client(1,
+    void testNomRueTropLong(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
-                "Rue test",
+                "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 "42042",
                 "Testville",
                 "4242424242",
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        assertEquals(societe.getNomRue(),"Rue test");
+                42));
+        assertEquals("Erreur : nom rue ne dois pas faire plus de 30 caractères",exception.getMessage());
     }
-
     @Test
-    void testGetCodePostal()throws Exception {
-        Client societe = new Client(1,
+    void testCodePostalVide(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
-                "42042",
+                "",
                 "Testville",
                 "4242424242",
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        assertEquals(societe.getCodePostal(),"42042");
+                42));
+        assertEquals("Erreur : code postal ne dois pas être vide",exception.getMessage());
     }
     @Test
-    void testSetCodePostal() throws Exception {
-        Client societe = new Client(1,
+    void testCodePostalTropGrand(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
-                "42042",
+                "4242424242242424242424242424242424242424",
                 "Testville",
                 "4242424242",
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        societe.setCodePostal("21021");
-        assertEquals(societe.getCodePostal(),"21021");
+                42));
+        assertEquals("Erreur : code postal ne dois pas faire plus de 5 caractères",exception.getMessage());
     }
     @Test
-    void testGetVille()throws Exception {
-        Client societe = new Client(1,
+    void testVilleVide(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42));
+        assertEquals("Erreur : ville ne dois pas être vide",exception.getMessage());
+    }
+    @Test
+    void testVilleTropGrand(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "VIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIILLLLLLLLLLLLLLLLLLLEEEEEEEEEEEEEE",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42));
+        assertEquals("Erreur : ville ne dois pas faire plus de 20 caractères",exception.getMessage());
+    }
+    @Test
+    void testTelephoneVide(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
                 "42042",
                 "Testville",
-                "4242424242",
+                "",
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        assertEquals(societe.getVille(),"Testville");
+                42));
+        assertEquals("Erreur : telephone ne dois pas être vide",exception.getMessage());
     }
     @Test
-    void testSetVille() throws Exception {
-        Client societe = new Client(1,
+    void testTelephoneTropGrand(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
                 "42042",
                 "Testville",
-                "4242424242",
+                "01234567890123456789",
                 "test@test.com",
                 "test",
                 2048,
-                42);
-        societe.setVille("Testbourg");
-        assertEquals(societe.getVille(),"Testbourg");
+                42));
+        assertEquals("Erreur : telephone ne dois pas faire plus de 15 caractères",exception.getMessage());
     }
     @Test
-    void testGetTelephone()throws Exception {
-        Client societe = new Client(1,
-                "test",
-                "42",
-                "Rue test",
-                "42042",
-                "Testville",
-                "4242424242",
-                "test@test.com",
-                "test",
-                2048,
-                42);
-        assertEquals(societe.getTelephone(),"4242424242");
-    }
-    @Test
-    void testSetTelephone() throws Exception {
-        Client societe = new Client(1,
-                "test",
-                "42",
-                "Rue test",
-                "42042",
-                "Testville",
-                "4242424242",
-                "test@test.com",
-                "test",
-                2048,
-                42);
-        societe.setTelephone("2121212121");
-        assertEquals(societe.getTelephone(),"2121212121");
-    }
-    @Test
-    void testSetTelephoneTropPetit(){
+    void testTelephoneTropPetit(){
         Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
@@ -210,41 +207,55 @@ public class TestSociete {
                 42));
         assertEquals("Numéro de téléphone trop court : doit avoir au moins 10 chiffres",exception.getMessage());
     }
-
     @Test
-    void testGetMail()throws Exception {
-        Client societe = new Client(1,
+    void testMailVide(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
                 "42042",
                 "Testville",
                 "4242424242",
-                "test@test.com",
+                "",
                 "test",
                 2048,
-                42);
-        assertEquals(societe.getMail(),"test@test.com");
+                42));
+        assertEquals("Erreur : mail ne dois pas être vide",exception.getMessage());
     }
     @Test
-    void testSetMail() throws Exception {
-        Client societe = new Client(1,
+    void testMailTropGrand(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
                 "42042",
                 "Testville",
                 "4242424242",
-                "test@test.com",
+                "GGGGGGGGGGGGGGUUUUUUUUUUUUUUAAAAAAA@JJJJJJJJJJJJIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIUUUUUUUUUUU.AAAAAAAAAAAAAAAAAAA",
                 "test",
                 2048,
-                42);
-        societe.setMail("adresse@mail.com");
-        assertEquals(societe.getMail(),"adresse@mail.com");
+                42));
+        assertEquals("Erreur : mail ne dois pas plus de 50 caractères",exception.getMessage());
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"test","test.test","test@test"})
+    void testMailMauvaisFormat(String mail){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                mail,
+                "test",
+                2048,
+                42));
+        assertEquals("Email invalide : doit être au format [adresse]@[mail].[domaine]",exception.getMessage());
     }
     @Test
-    void testGetCommentaire() throws Exception {
-        Client societe = new Client(1,
+    void testCommentaireTropLong(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
@@ -252,26 +263,12 @@ public class TestSociete {
                 "Testville",
                 "4242424242",
                 "test@test.com",
-                "test",
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 2048,
-                42);
-        assertEquals(societe.getCommentaire(),"test");
-    }
-    @Test
-    void testSEtCommentaire() throws Exception {
-        Client societe = new Client(1,
-                "test",
-                "42",
-                "Rue test",
-                "42042",
-                "Testville",
-                "4242424242",
-                "test@test.com",
-                "test",
-                2048,
-                42);
-        societe.setCommentaire("commentaire");
-        assertEquals(societe.getCommentaire(),"commentaire");
+                42));
+        assertEquals("Erreur : commentaire ne dois pas faire plus de 100 caractères",exception.getMessage());
     }
 }
 

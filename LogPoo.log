@@ -165,3 +165,37 @@
 07/03/2024 10:06:17 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
 07/03/2024 10:08:15 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : onValider / Message : Erreur Controleur : commentaire ne dois pas faire plus de 100 caractères
 07/03/2024 10:08:32 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 08:11:39 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Duplicata du champ 'gu' pour la clef 'client.RAISONSOCIALE'
+19/03/2024 08:13:21 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 08:15:59 Niveau : WARNING / Classe : controleur.ControleurFormulaire / Methode : createClient / Message : Erreur Controleur : Email invalide : doit être au format [adresse]@[mail].[domaine]
+19/03/2024 08:16:29 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 08:29:21 Niveau : SEVERE / Classe : dao.ConnexionManager / Methode : <init> / Message : Erreur connexion : Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+19/03/2024 08:29:21 Niveau : SEVERE / Classe : vues.VueAcceuil / Methode : initChoixSociete / Message : Erreur : Erreur de connexion
+19/03/2024 08:53:10 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:04:55 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:09:22 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Duplicata du champ 'test' pour la clef 'client.RAISONSOCIALE'
+19/03/2024 09:09:57 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Duplicata du champ 'test' pour la clef 'client.RAISONSOCIALE'
+19/03/2024 09:10:09 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:11:11 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Duplicata du champ 'test' pour la clef 'client.RAISONSOCIALE'
+19/03/2024 09:14:14 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:14:42 Niveau : SEVERE / Classe : dao.DAOClient / Methode : create / Message : Erreur DAO : Duplicata du champ 'test' pour la clef 'client.RAISONSOCIALE'
+19/03/2024 09:16:43 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:25:12 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:31:49 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:37:56 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur : Text '19/03/204' could not be parsed at index 6
+19/03/2024 09:37:59 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:39:05 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:43:26 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur : Text '05/03/20' could not be parsed at index 6
+19/03/2024 09:43:28 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:45:46 Niveau : SEVERE / Classe : vues.VueFormulaire$2 / Methode : actionPerformed / Message : Erreur : Text '12/12/20' could not be parsed at index 6
+19/03/2024 09:45:52 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 09:57:15 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 16:17:44 Niveau : SEVERE / Classe : vues.VueFormulaire / Methode : <init> / Message : Erreur : Cannot invoke "String.hashCode()" because "<local4>" is null
+19/03/2024 16:19:00 Niveau : SEVERE / Classe : vues.VueAcceuil$10 / Methode : actionPerformed / Message : Erreur : Cannot invoke "Object.toString()" because the return value of "javax.swing.JComboBox.getSelectedItem()" is null
+19/03/2024 16:19:01 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 16:20:47 Niveau : SEVERE / Classe : dao.DAOClient / Methode : findByName / Message : Erreur DAO : Illegal operation on empty result set.
+19/03/2024 16:22:37 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 16:24:09 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+19/03/2024 16:26:36 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée

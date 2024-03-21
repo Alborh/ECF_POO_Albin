@@ -4,7 +4,6 @@ import exception.ExceptionDAO;
 import log.LoggerPoo;
 import metier.Client;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -25,7 +24,7 @@ public class DAOClient {
             String query = "SELECT client.idclient as id, client.raisonsociale as raisoc, client.numerorue as numrue, " +
                     "client.nomrue as nomrue, client.codepostal as cdpost, client.ville as ville, client.telephone as tel, " +
                     "client.mail as mail, client.commentaire as comm, client.chiffredaffaire as chaff, client.NBEMPLOYES as nbemp" +
-                    " FROM client ORDER BY client.raisonsociale";
+                    " FROM client";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet res = stmt.executeQuery();
             while (res.next()) {
@@ -43,9 +42,9 @@ public class DAOClient {
                 clients.add(new Client(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, chaff, nbemp));
             }
             return clients;
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -60,7 +59,7 @@ public class DAOClient {
             Connection connection = ConnexionManager.getConnexion();
             String query = "SELECT client.idclient as id, client.raisonsociale as raisoc, client.numerorue as numrue, client.nomrue as nomrue," +
                     " client.codepostal as cdpost, client.ville as ville, client.telephone as tel, client.mail as mail, client.commentaire as comm," +
-                    " client.chiffredaffaire as chaff, client.NBEMPLOYES as nbemp FROM client where client.RAISONSOCIALE like ?";
+                    " client.chiffredaffaire as chaff, client.NBEMPLOYES as nbemp FROM client where client.RAISONSOCIALE = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1,name);
             ResultSet res = stmt.executeQuery();
@@ -78,9 +77,9 @@ public class DAOClient {
             int nbemp = res.getInt("nbemp");
             Client client = new Client(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, chaff, nbemp);
             return client;
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -108,9 +107,12 @@ public class DAOClient {
             stmt.setDouble(10,client.getChiffreDAffaire());
             stmt.setInt(11,client.getNbEmploye());
             stmt.execute();
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
+            if (e.getErrorCode()==1062){
+                throw (new ExceptionDAO("Erreur : cette raison sociale est déjà utilisée",1));
+            }
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -138,9 +140,12 @@ public class DAOClient {
             stmt.setDouble(9,client.getChiffreDAffaire());
             stmt.setInt(10,client.getNbEmploye());
             stmt.execute();
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
+            if (e.getErrorCode()==1062){
+                throw (new ExceptionDAO("Erreur : cette raison sociale est déjà utilisée",1));
+            }
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -156,9 +161,9 @@ public class DAOClient {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,client.getIdentifiant());
             stmt.execute();
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 }

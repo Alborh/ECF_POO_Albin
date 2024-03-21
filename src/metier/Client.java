@@ -1,9 +1,6 @@
 package metier;
 
 import exception.ExceptionMetier;
-import log.LoggerPoo;
-
-import java.util.logging.Level;
 
 /**
  * Type de société Client avec chiffre d'affaires et nombre d'employés
@@ -19,7 +16,6 @@ public class Client extends Societe{
      */
     public void setChiffreDAffaire(double chiffreDAffaire) throws Exception {
         if (chiffreDAffaire<200){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Métier : Le chiffre d'affaire doit être supérieur à 200");
             throw (new ExceptionMetier("Le chiffre d'affaire doit être supérieur à 200"));
         }
         this.chiffreDAffaire = chiffreDAffaire;
@@ -40,7 +36,6 @@ public class Client extends Societe{
      */
     public void setNbEmploye(int nbEmploye) throws Exception {
         if (nbEmploye<1){
-            LoggerPoo.LOGGER.log(Level.WARNING,"Erreur Métier : Le nombre d'employé doit être supérieur à 0");
             throw (new ExceptionMetier("Le nombre d'employé doit être supérieur à 0"));
         }
         this.nbEmploye = nbEmploye;
@@ -74,5 +69,14 @@ public class Client extends Societe{
         super(identifiant,raisonSociale,numeroRue,nomRue,codePostal,ville,telephone,mail,commentaire);
         setChiffreDAffaire(chiffreDAffaire);
         setNbEmploye(nbEmploye);
+    }
+
+    /**
+     *
+     * @return String décrivant le client
+     */
+    @Override
+    public String toString() {
+        return super.toString()+getChiffreDAffaire()+" "+getNbEmploye();
     }
 }

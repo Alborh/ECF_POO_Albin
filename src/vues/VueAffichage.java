@@ -34,26 +34,42 @@ public class VueAffichage extends JDialog {
     }
 
     /**
-     * initialisation des composants de l'affichage
+     * Initialisation des composants de l'affichage
      * @param typeSociete String Client ou Prospect
      */
     public void initComposants(String typeSociete){
         try {
             setSize(1200, 400);
             labTitre.setText("Affichage " + typeSociete);
-            scrollPane.getViewport().add(new JScrollPane(ControlleurAffichage.tableAffichage(typeSociete)));
-        } catch (ExceptionMetier | ExceptionDAO ex) {
+            String[] titre;
+            if (typeSociete.equals("Client")){
+                titre = new String[]{"Raison sociale", "Numéro rue", "Nom rue", "Code postal", "Ville", "Téléphone",
+                        "Mail", "Commentaire", "Chiffre d'affaire", "Nombre d'employés"};
+            } else {
+                titre = new String[]{"Raison sociale", "Numéro rue", "Nom rue", "Code postal", "Ville", "Téléphone",
+                        "Mail", "Commentaire", "Date de Prospection", "Prospect interressé"};
+
+            }
+            Object[][] data = ControlleurAffichage.tableAffichage(typeSociete);
+            scrollPane.getViewport().add(new JScrollPane(new JTable(data,titre)));
+        } catch (ExceptionMetier ex) {
             Outils.fenetrePopUp("Erreur",ex.getMessage());
-            System.out.println(ex.getMessage());
+        } catch (ExceptionDAO ex) {
+            if (ex.getGravite()==1){
+                Outils.fenetrePopUp("Erreur",ex.getMessage());
+            } else {
+                Outils.fenetrePopUp("Erreur", ex.getMessage());
+                System.exit(1);
+            }
         } catch (Exception ex){
             LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-            Outils.fenetrePopUp("Erreur",ex.getMessage());
-            System.out.println(ex.getMessage());
+            Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
+            System.exit(1);
         }
     }
 
     /**
-     * mise en place des actionListener des différents bouttons
+     * Mise en place des actionListener des différents bouttons
      */
     public void actionListeners(){
         buttonRetourAcceuil.addActionListener(new ActionListener() {

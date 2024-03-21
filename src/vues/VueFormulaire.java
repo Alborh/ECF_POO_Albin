@@ -58,9 +58,15 @@ public class VueFormulaire extends JDialog {
             getRootPane().setDefaultButton(buttonValider);
             initComposants(typeFormulaire, typeSociete, raisonSociale);
             actionListeners();
-        } catch (ExceptionMetier | ExceptionDAO e) {
+        } catch (ExceptionMetier e) {
             Outils.fenetrePopUp("Erreur",e.getMessage());
-            System.out.println(e.getMessage());
+        } catch (ExceptionDAO e) {
+            if (e.getGravite()==1){
+                Outils.fenetrePopUp("Erreur",e.getMessage());
+            } else {
+                Outils.fenetrePopUp("Erreur", e.getMessage());
+                System.exit(1);
+            }
         } catch (Exception e){
             Outils.fenetrePopUp("Erreur",e.getMessage());
             System.out.println(e.getMessage());
@@ -203,15 +209,22 @@ public class VueFormulaire extends JDialog {
                             dateTextField.getText(),
                             interesse,
                             id);
+                    Outils.fenetrePopUp("Formulaire validé","Les changements ont été effectués");
                     dispose();
                     ControleurFormulaire.onRetourAcceuil();
-                } catch (ExceptionMetier | ExceptionControleur | ExceptionDAO ex) {
+                } catch (ExceptionMetier | ExceptionControleur | NumberFormatException ex) {
                     Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
+                } catch (ExceptionDAO ex) {
+                    if (ex.getGravite()==1){
+                        Outils.fenetrePopUp("Erreur",ex.getMessage());
+                    } else {
+                        Outils.fenetrePopUp("Erreur", ex.getMessage());
+                        System.exit(1);
+                    }
                 } catch (Exception ex){
                     LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
+                    Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
+                    System.exit(1);
                 }
             }
         });

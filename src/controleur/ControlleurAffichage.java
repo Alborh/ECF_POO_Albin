@@ -4,10 +4,8 @@ import dao.DAOClient;
 import dao.DAOProspect;
 import metier.Client;
 import metier.Prospect;
-import outils.ModelAffichage;
 import vues.VueAffichage;
 
-import javax.swing.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class ControlleurAffichage {
      * @return JTable des sociétés du type sélectionné
      * @throws Exception remonte les exceptions
      */
-    public static JTable tableAffichage(String typeSociete) throws Exception {
+    public static Object[][] tableAffichage(String typeSociete) throws Exception {
         switch (typeSociete){
             case "Client"->{
                 ArrayList<Client> clients = DAOClient.findAll();
@@ -49,9 +47,7 @@ public class ControlleurAffichage {
                     data[i][8] = clients.get(i).getChiffreDAffaire();
                     data[i][9] = clients.get(i).getNbEmploye();
                 }
-                ModelAffichage modelAffichage = new ModelAffichage(data, titre);
-                JTable jTable = new JTable(modelAffichage);
-                return jTable;
+                return data;
             }
             case "Prospect"->{
                 ArrayList<Prospect> prospects = DAOProspect.findAll();
@@ -69,12 +65,10 @@ public class ControlleurAffichage {
                     data[i][8] = prospects.get(i).getDateProspection().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     data[i][9] = prospects.get(i).getInteresse();
                 }
-                ModelAffichage modelAffichage = new ModelAffichage(data, titre);
-                JTable jTable = new JTable(modelAffichage);
-                return jTable;
+                return data;
             }
         }
-        return new JTable();
+        return new Object[0][0];
     }
 
     /**

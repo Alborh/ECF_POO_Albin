@@ -43,7 +43,6 @@ public class VueAcceuil extends JDialog {
         getRootPane().setDefaultButton(validerButton);
         initComposants();
         actionListeners();
-
     }
 
     /**
@@ -66,13 +65,22 @@ public class VueAcceuil extends JDialog {
             for (Societe societe : societes){
                 comboBoxChoixSociete.addItem(societe.getRaisonSociale());
             }
-        } catch (ExceptionMetier | ExceptionDAO ex) {
+            if(societes.isEmpty()){
+                comboBoxChoixSociete.addItem("--Aucun Choix--");
+            }
+        } catch (ExceptionMetier ex) {
             Outils.fenetrePopUp("Erreur",ex.getMessage());
-            System.out.println(ex.getMessage());
+        } catch (ExceptionDAO ex) {
+            if (ex.getGravite()==1){
+                Outils.fenetrePopUp("Erreur",ex.getMessage());
+            } else {
+                Outils.fenetrePopUp("Erreur", ex.getMessage());
+                System.exit(1);
+            }
         } catch (Exception ex){
             LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-            Outils.fenetrePopUp("Erreur",ex.getMessage());
-            System.out.println(ex.getMessage());
+            Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
+            System.exit(1);
         }
     }
 
@@ -126,13 +134,10 @@ public class VueAcceuil extends JDialog {
                 try {
                     dispose();
                     ControleurAcceuil.onAfficher(typeSociete);
-                } catch (ExceptionMetier | ExceptionDAO ex) {
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
                 } catch (Exception ex){
                     LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
+                    Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
+                    System.exit(1);
                 }
             }
         });
@@ -145,8 +150,8 @@ public class VueAcceuil extends JDialog {
                     ControleurAcceuil.onCreation(typeSociete);
                 } catch (Exception ex){
                     LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
+                    Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
+                    System.exit(1);
                 }
             }
         });
@@ -167,6 +172,10 @@ public class VueAcceuil extends JDialog {
         validerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                    if (comboBoxChoixSociete.getSelectedItem().toString().equals("--Aucun Choix--")){
+                        Outils.fenetrePopUp("Erreur","Pas de choix disponibles");
+                        System.exit(1);
+                    }
                     dispose();
                     switch (typeFormulaire){
                         case "Modification" -> {
@@ -178,8 +187,8 @@ public class VueAcceuil extends JDialog {
                     }
                 } catch (Exception ex){
                     LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur",ex.getMessage());
-                    System.out.println(ex.getMessage());
+                    Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
+                    System.exit(1);
                 }
             }
         });

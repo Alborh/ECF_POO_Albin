@@ -4,7 +4,6 @@ import exception.ExceptionDAO;
 import log.LoggerPoo;
 import metier.Prospect;
 
-import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +26,7 @@ public class DAOProspect {
             String query = "SELECT prospect.IDPROSPECT as id, prospect.raisonsociale as raisoc, prospect.numerorue as numrue, " +
                     "prospect.nomrue as nomrue, prospect.codepostal as cdpost, prospect.ville as ville, prospect.telephone as tel, " +
                     "prospect.mail as mail, prospect.commentaire as comm, prospect.DATEPROSPECTION as datepros, prospect.INTERESSE as interesse" +
-                    " FROM prospect ORDER BY prospect.raisonsociale";
+                    " FROM prospect";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet res = stmt.executeQuery();
             while (res.next()){
@@ -46,9 +45,9 @@ public class DAOProspect {
                 prospects.add(new Prospect(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, datepros,interesse));
             }
             return prospects;
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -64,7 +63,7 @@ public class DAOProspect {
             String query = "SELECT prospect.IDPROSPECT as id, prospect.raisonsociale as raisoc, prospect.numerorue as numrue, " +
                     "prospect.nomrue as nomrue, prospect.codepostal as cdpost, prospect.ville as ville, prospect.telephone as tel, " +
                     "prospect.mail as mail, prospect.commentaire as comm, prospect.DATEPROSPECTION as datepros, prospect.INTERESSE as interesse" +
-                    " FROM prospect WHERE prospect.raisonsociale like ?";
+                    " FROM prospect WHERE prospect.raisonsociale = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1,name);
             ResultSet res = stmt.executeQuery();
@@ -83,9 +82,9 @@ public class DAOProspect {
             String interesse = res.getString("interesse");
             Prospect prospect = new Prospect(id, raisoc, numrue, nomrue, cdpost, ville, tel, mail, comm, datepros,interesse);
             return prospect;
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -114,9 +113,12 @@ public class DAOProspect {
             stmt.setString(10,prospect.getDateProspection().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             stmt.setString(11,prospect.getInteresse());
             stmt.execute();
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
+            if (e.getErrorCode()==1062){
+                throw (new ExceptionDAO("Erreur : cette raison sociale est déjà utilisée",1));
+            }
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -145,9 +147,12 @@ public class DAOProspect {
             stmt.setString(9, prospect.getDateProspection().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             stmt.setString(10,prospect.getInteresse());
             stmt.execute();
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
+            if (e.getErrorCode()==1062){
+                throw (new ExceptionDAO("Erreur : cette raison sociale est déjà utilisée",1));
+            }
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 
@@ -156,16 +161,16 @@ public class DAOProspect {
      * @param prospect Prospect
      * @throws Exception remonte les exceptions SQLException er IOException
      */
-    public static void delete(Prospect prospect) throws Exception {
+    public static void delete(Prospect prospect) throws Exception {m:
         try {
             Connection connection = ConnexionManager.getConnexion();
             String query = "DELETE FROM prospect WHERE prospect.idprospect = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,prospect.getIdentifiant());
             stmt.execute();
-        } catch (SQLException | IOException e){
+        } catch (SQLException e){
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur DAO : "+e.getMessage());
-            throw (new ExceptionDAO("Erreur : "+e.getMessage()));
+            throw (new ExceptionDAO("Erreur : "+e.getMessage(),5));
         }
     }
 }

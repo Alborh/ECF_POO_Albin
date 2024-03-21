@@ -24,8 +24,8 @@ public class Main {
             ControleurAcceuil.init();
 
         } catch (IOException e) {
-            LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+e.getMessage()+" "+e);
+            System.exit(1);
+            //LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur : "+e.getMessage()+" "+e);
         }
-
     }
 }

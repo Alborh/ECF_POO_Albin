@@ -33,7 +33,7 @@ public class ControleurAcceuil {
      * @param typeSociete String Client ou Prospect
      */
     public static void onCreation(String typeSociete) {
-        ControleurFormulaire.init("Creation", typeSociete,"Creation");
+        ControleurFormulaire.init("Creation", typeSociete,"");
     }
 
     /**

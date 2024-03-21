@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 public class TestProspect {
     @Test
-    void testGetDateProspection() throws Exception {
-        Prospect prospect = new Prospect(1,
+    void testDateProspectionNull(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Prospect(1,
                 "test",
                 "42",
                 "Rue test",
@@ -22,13 +22,13 @@ public class TestProspect {
                 "4242424242",
                 "test@test.com",
                 "test",
-                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                "Oui");
-        assertEquals(prospect.getDateProspection(),LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                null,
+                "Peut-être"));
+        assertEquals("Erreur : la valeur Date prospection ne dois pas être vide",exception.getMessage());
     }
     @Test
-    void testSetDateProspection() throws Exception {
-        Prospect prospect = new Prospect(1,
+    void testInteressseide(){
+        Exception exception = assertThrows(ExceptionMetier.class,()->new Prospect(1,
                 "test",
                 "42",
                 "Rue test",
@@ -38,44 +38,11 @@ public class TestProspect {
                 "test@test.com",
                 "test",
                 LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                "Oui");
-        prospect.setDateProspection(LocalDate.parse("28/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        assertEquals(prospect.getDateProspection(),LocalDate.parse("28/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-    }
-    @ParameterizedTest
-    @ValueSource(strings = {"Oui","Non"})
-    void testGetInterresse(String interet) throws Exception {
-        Prospect prospect = new Prospect(1,
-                "test",
-                "42",
-                "Rue test",
-                "42042",
-                "Testville",
-                "4242424242",
-                "test@test.com",
-                "test",
-                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                interet);
-        assertEquals(interet,prospect.getInteresse());
+                ""));
+        assertEquals("Erreur : la valeur interesse ne dois pas être nulle",exception.getMessage());
     }
     @Test
-    void testSetInteresse() throws Exception {
-        Prospect prospect = new Prospect(1,
-                "test",
-                "42",
-                "Rue test",
-                "42042",
-                "Testville",
-                "4242424242",
-                "test@test.com",
-                "test",
-                LocalDate.parse("27/02/2024",DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                "Oui");
-        prospect.setInteresse("Non");
-        assertEquals("Non",prospect.getInteresse());
-    }
-    @Test
-    void testSetInterresseIncorrect(){
+    void testInterresseIncorrect(){
         Exception exception = assertThrows(ExceptionMetier.class,()->new Prospect(1,
                 "test",
                 "42",
