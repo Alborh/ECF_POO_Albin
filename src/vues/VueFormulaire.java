@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
+import java.util.regex.Pattern;
 
 /**
  * Vue du formulaire
@@ -43,6 +44,8 @@ public class VueFormulaire extends JDialog {
     private JLabel labEmploye;
     private JLabel labDate;
     private JLabel labInteresse;
+    private typeSociete typeSociete;
+    private typeFormulaire typeFormulaire;
     private int id;
 
     /**
@@ -56,7 +59,9 @@ public class VueFormulaire extends JDialog {
             setContentPane(contentPane);
             setModal(true);
             getRootPane().setDefaultButton(buttonValider);
-            initComposants(typeFormulaire, typeSociete, raisonSociale);
+            this.typeFormulaire = typeFormulaire;
+            this.typeSociete = typeSociete;
+            initComposants(raisonSociale);
             actionListeners();
         } catch (ExceptionMetier e) {
             Outils.fenetrePopUp("Erreur",e.getMessage());
@@ -76,12 +81,10 @@ public class VueFormulaire extends JDialog {
 
     /**
      * Initialise les composants du formulaire
-     * @param typeFormulaire String Creation, Modification ou Suppression
-     * @param typeSociete String Client ou Prospect
      * @param raisonSociale String raison sociale de la société
      * @throws Exception remonte les exceptions
      */
-    public void initComposants(typeFormulaire typeFormulaire, typeSociete typeSociete, String raisonSociale) throws Exception {
+    public void initComposants(String raisonSociale) throws Exception {
         setSize(400, 500);
         //options client
         labChiffreDAffaire.setVisible(false);
@@ -196,6 +199,23 @@ public class VueFormulaire extends JDialog {
                     } else if (nonRadioButton.isSelected()){
                         interesse = "Non";
                     }
+                    //Vérification des champs devant êtres renseignés ne pouvant pas être testé si null une fois convertit (double et int)
+                    if (typeSociete == typeSociete.CLIENT){
+                        if (textFieldChiffreDAffaire.getText().isEmpty()){
+                            throw (new ExceptionControleur("Erreur : chiffre d'affaire ne dois pas être vide"));
+                        }
+                        if (textFieldNombreEmploye.getText().isEmpty()){
+                            throw (new ExceptionControleur("Erreur : nombre d'employés ne dois pas être vide"));
+                        }
+                    }
+                    //vérifie que la date est au bon format avant de parse
+                    if (typeSociete == typeSociete.PROSPECT){
+                        // /!\ ne prend pas en compte la taille des mois
+                        Pattern patternDate = Pattern.compile("^((0[1-9])|([12][0-9])|(3[01]))/((0[0-9])|(1[012]))/([0-9][0-9][0-9][0-9])$");
+                        if(!patternDate.matcher(dateTextField.getText()).matches()){
+                            throw (new ExceptionControleur("Mauvais format de date (doit être dd/MM/yyyy)"));
+                        }
+                    }
                     ControleurFormulaire.onValider(textFieldRaisonSociale.getText(),
                             textFieldNumeroRue.getText(),
                             textFieldNomRue.getText(),
@@ -218,7 +238,7 @@ public class VueFormulaire extends JDialog {
                     if (ex.getGravite()==1){
                         Outils.fenetrePopUp("Erreur",ex.getMessage());
                     } else {
-                        Outils.fenetrePopUp("Erreur", ex.getMessage());
+                        Outils.fenetrePopUp("Erreur", "Une erreur est survenue");
                         System.exit(1);
                     }
                 } catch (Exception ex){

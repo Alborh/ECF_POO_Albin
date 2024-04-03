@@ -199,3 +199,7 @@ The last packet sent successfully to the server was 0 milliseconds ago. The driv
 19/03/2024 16:22:37 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
 19/03/2024 16:24:09 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
 19/03/2024 16:26:36 Niveau : INFO / Classe : dao.ConnexionManager$1 / Methode : run / Message : Database fermée
+02/04/2024 16:13:23 Niveau : SEVERE / Classe : dao.ConnexionManager / Methode : <init> / Message : Erreur connexion : Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+02/04/2024 16:13:23 Niveau : SEVERE / Classe : vues.VueAcceuil / Methode : initChoixSociete / Message : Erreur : Erreur de connexion

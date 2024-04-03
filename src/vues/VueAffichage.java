@@ -4,10 +4,14 @@ import controleur.ControlleurAffichage;
 import exception.ExceptionDAO;
 import exception.ExceptionMetier;
 import log.LoggerPoo;
+import metier.Client;
+import metier.Prospect;
 import outils.*;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
@@ -42,15 +46,42 @@ public class VueAffichage extends JDialog {
             setSize(1200, 400);
             labTitre.setText("Affichage " + typeSociete.getNom());
             String[] titre;
-            if (typeSociete.equals("Client")){
+            Object[][] data;
+            if (typeSociete == outils.typeSociete.CLIENT){
                 titre = new String[]{"Raison sociale", "Numéro rue", "Nom rue", "Code postal", "Ville", "Téléphone",
                         "Mail", "Commentaire", "Chiffre d'affaire", "Nombre d'employés"};
+                ArrayList<Client> clients = ControlleurAffichage.listeClients();
+                data = new Object[clients.size()][10];
+                for (int i = 0; i<clients.size(); i++){
+                    data[i][0] = clients.get(i).getRaisonSociale();
+                    data[i][1] = clients.get(i).getNumeroRue();
+                    data[i][2] = clients.get(i).getNomRue();
+                    data[i][3] = clients.get(i).getCodePostal();
+                    data[i][4] = clients.get(i).getVille();
+                    data[i][5] = clients.get(i).getTelephone();
+                    data[i][6] = clients.get(i).getMail();
+                    data[i][7] = clients.get(i).getCommentaire();
+                    data[i][8] = clients.get(i).getChiffreDAffaire();
+                    data[i][9] = clients.get(i).getNbEmploye();
+                }
             } else {
                 titre = new String[]{"Raison sociale", "Numéro rue", "Nom rue", "Code postal", "Ville", "Téléphone",
                         "Mail", "Commentaire", "Date de Prospection", "Prospect interressé"};
-
+                ArrayList<Prospect> prospects = ControlleurAffichage.listeProspect();
+                data = new Object[prospects.size()][10];
+                for (int i = 0; i<prospects.size(); i++){
+                    data[i][0] = prospects.get(i).getRaisonSociale();
+                    data[i][1] = prospects.get(i).getNumeroRue();
+                    data[i][2] = prospects.get(i).getNomRue();
+                    data[i][3] = prospects.get(i).getCodePostal();
+                    data[i][4] = prospects.get(i).getVille();
+                    data[i][5] = prospects.get(i).getTelephone();
+                    data[i][6] = prospects.get(i).getMail();
+                    data[i][7] = prospects.get(i).getCommentaire();
+                    data[i][8] = prospects.get(i).getDateProspection().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    data[i][9] = prospects.get(i).getInteresse();
+                }
             }
-            Object[][] data = ControlleurAffichage.tableAffichage(typeSociete);
             scrollPane.getViewport().add(new JScrollPane(new JTable(data,titre)));
         } catch (ExceptionMetier ex) {
             Outils.fenetrePopUp("Erreur",ex.getMessage());

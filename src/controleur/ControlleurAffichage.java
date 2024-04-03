@@ -7,7 +7,6 @@ import metier.Prospect;
 import vues.VueAffichage;
 import outils.*;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -25,53 +24,22 @@ public class ControlleurAffichage {
     }
 
     /**
-     * Renvoie une JTable affichant les paramètres des sociétés du type sélectionné
-     * @param typeSociete String Client ou Prospect
-     * @return JTable des sociétés du type sélectionné
+     *
+     * @return Arraylist\<Client> de tous les clients
      * @throws Exception remonte les exceptions
      */
-    public static Object[][] tableAffichage(typeSociete typeSociete) throws Exception {
-        switch (typeSociete){
-            case CLIENT->{
-                ArrayList<Client> clients = DAOClient.findAll();
-                String[] titre = {"Raison sociale","Numéro rue","Nom rue","Code postal","Ville","Téléphone","Mail","Commentaire","Chiffre d'affaire","Nombre d'employés"};
-                Object[][] data = new Object[clients.size()][10];
-                for (int i = 0; i<clients.size(); i++){
-                    data[i][0] = clients.get(i).getRaisonSociale();
-                    data[i][1] = clients.get(i).getNumeroRue();
-                    data[i][2] = clients.get(i).getNomRue();
-                    data[i][3] = clients.get(i).getCodePostal();
-                    data[i][4] = clients.get(i).getVille();
-                    data[i][5] = clients.get(i).getTelephone();
-                    data[i][6] = clients.get(i).getMail();
-                    data[i][7] = clients.get(i).getCommentaire();
-                    data[i][8] = clients.get(i).getChiffreDAffaire();
-                    data[i][9] = clients.get(i).getNbEmploye();
-                }
-                return data;
-            }
-            case PROSPECT->{
-                ArrayList<Prospect> prospects = DAOProspect.findAll();
-                String[] titre = {"Raison sociale","Numéro rue","Nom rue","Code postal","Ville","Téléphone","Mail","Commentaire","Date de Prospection","Prospect interressé"};
-                Object[][] data = new Object[prospects.size()][10];
-                for (int i = 0; i<prospects.size(); i++){
-                    data[i][0] = prospects.get(i).getRaisonSociale();
-                    data[i][1] = prospects.get(i).getNumeroRue();
-                    data[i][2] = prospects.get(i).getNomRue();
-                    data[i][3] = prospects.get(i).getCodePostal();
-                    data[i][4] = prospects.get(i).getVille();
-                    data[i][5] = prospects.get(i).getTelephone();
-                    data[i][6] = prospects.get(i).getMail();
-                    data[i][7] = prospects.get(i).getCommentaire();
-                    data[i][8] = prospects.get(i).getDateProspection().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    data[i][9] = prospects.get(i).getInteresse();
-                }
-                return data;
-            }
-        }
-        return new Object[0][0];
+    public static ArrayList<Client> listeClients() throws Exception {
+        return DAOClient.findAll();
     }
 
+    /**
+     *
+     * @return Arraylist\<Prospect> de tous les prospects
+     * @throws Exception remonte les exceptions
+     */
+    public static ArrayList<Prospect> listeProspect() throws Exception {
+        return DAOProspect.findAll();
+    }
     /**
      * Appel la vue acceuil
      */

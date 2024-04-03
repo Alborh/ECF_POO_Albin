@@ -2,7 +2,6 @@ package controleur;
 
 import dao.DAOClient;
 import dao.DAOProspect;
-import exception.ExceptionControleur;
 import metier.Client;
 import metier.Prospect;
 import vues.VueFormulaire;
@@ -10,7 +9,6 @@ import outils.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Pattern;
 
 
 /**
@@ -53,23 +51,7 @@ public class ControleurFormulaire {
     public static void onValider(String raisonSociale, String numeroRue, String nomRue, String codePostal, String ville,
                                  String telephone, String mail, String commentaire, String chiffreDAffaire, String nbEmploye,
                                  String dateProspect, String interesse, int id) throws Exception {
-        //Vérification des champs devant êtres renseignés ne pouvant pas être testé si null une fois convertit (double et int)
-        if (societe == typeSociete.CLIENT){
-            if (chiffreDAffaire.isEmpty()){
-                throw (new ExceptionControleur("Erreur : chiffre d'affaire ne dois pas être vide"));
-            }
-            if (nbEmploye.isEmpty()){
-                throw (new ExceptionControleur("Erreur : nombre d'employés ne dois pas être vide"));
-            }
-        }
-        //vérifie que la date est au bon format avant de parse
-        if (societe == typeSociete.PROSPECT){
-            // /!\ ne prend pas en compte la taille des mois
-            Pattern patternDate = Pattern.compile("^((0[1-9])|([12][0-9])|(3[01]))/((0[0-9])|(1[012]))/([0-9][0-9][0-9][0-9])$");
-            if(!patternDate.matcher(dateProspect).matches()){
-                throw (new ExceptionControleur("Mauvais format de date (doit être dd/MM/yyyy)"));
-            }
-        }
+
         LocalDate date = null;
         if (societe == typeSociete.PROSPECT){
             //Conversion de la date de String à LocalDate

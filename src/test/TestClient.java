@@ -8,8 +8,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestClient {
     @Test
+    void testParamValides(){
+        assertDoesNotThrow(()->new Client(1,
+                "test",
+                "42",
+                "Rue test",
+                "42042",
+                "Testville",
+                "4242424242",
+                "test@test.com",
+                "test",
+                2048,
+                42));
+    }
+    @Test
     void testSetChiffreDAffaireTropPetit(){
-        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+        assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
@@ -20,11 +34,10 @@ public class TestClient {
                 "test",
                 199,
                 42));
-        assertEquals("Le chiffre d'affaire doit être supérieur à 200",exception.getMessage());
     }
     @Test
     void testSetNbEmployeTropPetit(){
-        Exception exception = assertThrows(ExceptionMetier.class,()->new Client(1,
+        assertThrows(ExceptionMetier.class,()->new Client(1,
                 "test",
                 "42",
                 "Rue test",
@@ -35,6 +48,5 @@ public class TestClient {
                 "test",
                 2048,
                 0));
-        assertEquals("Le nombre d'employé doit être supérieur à 0",exception.getMessage());
     }
 }

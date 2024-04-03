@@ -131,28 +131,16 @@ public class VueAcceuil extends JDialog {
 
         afficherButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    dispose();
-                    ControleurAcceuil.onAfficher(typeSociete);
-                } catch (Exception ex){
-                    LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
-                    System.exit(1);
-                }
+                dispose();
+                ControleurAcceuil.onAfficher(typeSociete);
             }
         });
 
         creationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 typeFormulaire = outils.typeFormulaire.CREATION;
-                try {
-                    dispose();
-                    ControleurAcceuil.onCreation(typeSociete);
-                } catch (Exception ex){
-                    LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
-                    System.exit(1);
-                }
+                dispose();
+                ControleurAcceuil.onCreation(typeSociete);
             }
         });
 
@@ -171,24 +159,18 @@ public class VueAcceuil extends JDialog {
         });
         validerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (comboBoxChoixSociete.getSelectedItem().toString().equals("--Aucun Choix--")){
-                        Outils.fenetrePopUp("Erreur","Pas de choix disponibles");
-                        System.exit(1);
-                    }
-                    dispose();
-                    switch (typeFormulaire){
-                        case MODIFICATION -> {
-                            ControleurAcceuil.onModifier(typeSociete, typeFormulaire, comboBoxChoixSociete.getSelectedItem().toString());
-                        }
-                        case SUPPRESSION -> {
-                            ControleurAcceuil.onSupprimer(typeSociete, typeFormulaire, comboBoxChoixSociete.getSelectedItem().toString());
-                        }
-                    }
-                } catch (Exception ex){
-                    LoggerPoo.LOGGER.log(Level.SEVERE, "Erreur : "+ex.getMessage());
-                    Outils.fenetrePopUp("Erreur","Une erreur inconnue est survenue");
+                if (comboBoxChoixSociete.getSelectedItem().toString().equals("--Aucun Choix--")){
+                    Outils.fenetrePopUp("Erreur","Pas de choix disponibles");
                     System.exit(1);
+                }
+                dispose();
+                switch (typeFormulaire){
+                    case MODIFICATION -> {
+                        ControleurAcceuil.onModifier(typeSociete, typeFormulaire, comboBoxChoixSociete.getSelectedItem().toString());
+                    }
+                    case SUPPRESSION -> {
+                        ControleurAcceuil.onSupprimer(typeSociete, typeFormulaire, comboBoxChoixSociete.getSelectedItem().toString());
+                    }
                 }
             }
         });

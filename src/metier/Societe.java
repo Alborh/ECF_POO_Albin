@@ -19,7 +19,7 @@ public abstract class Societe {
     private String commentaire;
 
     /**
-     * setter de l'indentifiant
+     * setter de l'identifiant
      * @param identifiant int
      */
     public void setIdentifiant(int identifiant){
@@ -90,7 +90,7 @@ public abstract class Societe {
     }
 
     /**
-     * getter du nom de rue
+     * Getter du nom de rue
      * @return String nom de rue
      */
     public String getNomRue() {
@@ -199,7 +199,7 @@ public abstract class Societe {
     }
 
     /**
-     * getter des commentaires
+     * Getter des commentaires
      * @return String commentaires
      */
     public String getCommentaire() {

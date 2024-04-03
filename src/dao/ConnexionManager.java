@@ -1,5 +1,6 @@
 package dao;
 
+import exception.ExceptionDAO;
 import log.LoggerPoo;
 
 import java.io.File;
@@ -35,7 +36,7 @@ public class ConnexionManager {
                 dataProperties.getProperty("password"));
         } catch (SQLException | IOException e) {
             LoggerPoo.LOGGER.log(Level.SEVERE,"Erreur connexion : "+e.getMessage());
-            throw (new Exception("Erreur de connexion"));
+            throw (new ExceptionDAO("Erreur de connexion",5));
         }
     }
 
